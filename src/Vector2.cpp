@@ -39,6 +39,7 @@ void Vector2<T>::operator-=(const Vector2<T>& other)
 	x -= other.x;
 	y -= other.y;
 }
+
 template Vector2<float>;
 template Vector2<int>;
 template Vector2<unsigned int>;

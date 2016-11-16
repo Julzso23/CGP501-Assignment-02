@@ -12,11 +12,14 @@ void InputManager::setInputs(SDL_Scancode leftKey, SDL_Scancode rightKey)
 	this->rightKey = rightKey;
 }
 
-float InputManager::getAxis()
+void InputManager::update()
 {
 	int numKeys;
-	const Uint8* keyboardState = SDL_GetKeyboardState(&numKeys);
+	keyboardState = SDL_GetKeyboardState(&numKeys);
+}
 
+float InputManager::getAxis()
+{
 	if (keyboardState[leftKey])
 	{
 		return -1.f;
@@ -28,4 +31,9 @@ float InputManager::getAxis()
 	}
 
 	return 0.f;
+}
+
+bool InputManager::keyDown(SDL_Scancode key)
+{
+	return keyboardState[key];
 }

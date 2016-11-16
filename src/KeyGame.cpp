@@ -2,16 +2,17 @@
 
 void KeyGame::update(float deltaTime)
 {
-	float value = inputManager.getAxis();
-	player.move(Vector2f(value * 200.f * deltaTime, 0.f));
+	inputManager.update();
 
-	player.setVelocity(Vector2f(value, 0.f));
-
-	CollisionResponse response = player.testCollision(monster);
-	if (response.overlapping)
+	if (inputManager.keyDown(SDL_SCANCODE_SPACE))
 	{
-		player.move(response.reaction);
+		player.jump();
 	}
+
+	float value = inputManager.getAxis();
+	player.move(value * 200.f, deltaTime);
+
+	player.updateCollisions(monster);
 }
 
 void KeyGame::draw()
@@ -22,10 +23,11 @@ void KeyGame::draw()
 
 KeyGame::KeyGame(std::string title, Vector2i size, Uint32 flags) :
 	Game(title, size, flags),
-	player(renderer, "resources/monster.bmp", true),
-	monster(renderer, "resources/monster.bmp", true)
+	player(renderer, "resources/textures/monster.bmp", true),
+	monster(renderer, "resources/textures/TileFloor.bmp", true)
 {
-	monster.setPosition(Vector2f(200.f, 0.f));
+	monster.setPosition(Vector2f(0.f, 200.f));
+	player.setGravity(300.f);
 
 	inputManager.setInputs(SDL_SCANCODE_A, SDL_SCANCODE_D);
 }

@@ -47,6 +47,8 @@ int Game::run()
 	if (!renderer)
 		return 1;
 
+	lastTime = SDL_GetPerformanceCounter();
+
 	while (running)
 	{
 		SDL_Event e;
