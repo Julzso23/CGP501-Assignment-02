@@ -4,7 +4,7 @@
 Bitmap::Bitmap(SDL_Renderer* renderer, std::string path, bool hasTransparency) :
 	renderer(renderer)
 {
-	surface = SDL_LoadBMP(path.c_str());
+	surface = SDL_LoadBMP(("resources/textures/" + path).c_str());
 	if (!surface)
 	{
 		MessageBox(NULL, SDL_GetError(), ("Loading surface for bitmap: " + path + " failed.").c_str(), MB_ICONERROR | MB_OK);
