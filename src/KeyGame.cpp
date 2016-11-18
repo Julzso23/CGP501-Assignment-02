@@ -24,7 +24,8 @@ void KeyGame::draw()
 KeyGame::KeyGame(std::string title, Vector2i size, Uint32 flags) :
 	Game(title, size, flags),
 	player(renderer, "monster.bmp", true),
-	monster(renderer, "TileFloor.bmp", false)
+	monster(renderer, "TileFloor.bmp", false),
+	test("level1.txt")
 {
 	monster.setPosition(Vector2f(0.f, 200.f));
 	player.setGravity(300.f);

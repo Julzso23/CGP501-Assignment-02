@@ -3,12 +3,15 @@
 #include "Game.hpp"
 #include "Player.hpp"
 #include "InputManager.hpp"
+#include "Level.hpp"
 
 class KeyGame : public Game
 {
 private:
 	Player player;
 	Player monster;
+
+	Level test;
 
 	InputManager inputManager;
 

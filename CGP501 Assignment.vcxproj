@@ -131,7 +131,9 @@
     <ClInclude Include="include\Game.hpp" />
     <ClInclude Include="include\InputManager.hpp" />
     <ClInclude Include="include\KeyGame.hpp" />
+    <ClInclude Include="include\Level.hpp" />
     <ClInclude Include="include\Player.hpp" />
+    <ClInclude Include="include\Tile.hpp" />
     <ClInclude Include="include\Transformable.hpp" />
     <ClInclude Include="include\Vector2.hpp" />
   </ItemGroup>
@@ -140,12 +142,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\InputManager.cpp" />
+    <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Bitmap.cpp" />
     <ClCompile Include="src\CollisionObject.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\KeyGame.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Tile.cpp" />
     <ClCompile Include="src\Transformable.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
   </ItemGroup>
