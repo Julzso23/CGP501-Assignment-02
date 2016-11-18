@@ -4,7 +4,7 @@ void KeyGame::update(float deltaTime)
 {
 	inputManager.update();
 
-	if (inputManager.keyDown(SDL_SCANCODE_SPACE))
+	if (inputManager.buttonDown(SDL_SCANCODE_SPACE, SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_A))
 	{
 		player.jump();
 	}
@@ -23,8 +23,8 @@ void KeyGame::draw()
 
 KeyGame::KeyGame(std::string title, Vector2i size, Uint32 flags) :
 	Game(title, size, flags),
-	player(renderer, "resources/textures/monster.bmp", true),
-	monster(renderer, "resources/textures/TileFloor.bmp", true)
+	player(renderer, "monster.bmp", true),
+	monster(renderer, "TileFloor.bmp", false)
 {
 	monster.setPosition(Vector2f(0.f, 200.f));
 	player.setGravity(300.f);

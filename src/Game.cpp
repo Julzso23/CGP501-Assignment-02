@@ -15,7 +15,7 @@ Game::Game(std::string title, Vector2i size, Uint32 flags) :
 	running(true),
 	lastTime(0)
 {
-	SDL_Init(SDL_INIT_VIDEO);
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER);
 
 	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, size.x, size.y, flags);
 	if (!window)
