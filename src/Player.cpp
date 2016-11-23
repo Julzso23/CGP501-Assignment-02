@@ -5,7 +5,7 @@ Player::Player(SDL_Renderer* renderer, std::string path, bool hasTransparency) :
 	gravity(0.f),
 	grounded(false)
 {
-	setSize(Vector2f(surface->w, surface->h));
+	setSize(Vector2f((float)surface->w, (float)surface->h));
 }
 
 void Player::setGravity(float gravity)
@@ -44,10 +44,14 @@ void Player::updateCollisions(CollisionObject & other)
 	if (response.overlapping)
 	{
 		Transformable::move(response.reaction);
-		if (response.reaction.y < 0.f)
+		if (abs(response.reaction.y) > 0.f)
 		{
 			setVelocity(Vector2f(getVelocity().x, 0.f));
-			grounded = true;
+
+			if (response.reaction.y < 0.f)
+			{
+				grounded = true;
+			}
 		}
 	}
 }

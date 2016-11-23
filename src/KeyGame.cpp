@@ -12,22 +12,21 @@ void KeyGame::update(float deltaTime)
 	float value = inputManager.getAxis();
 	player.move(value * 200.f, deltaTime);
 
-	player.updateCollisions(monster);
+	level.updateCollisions(player);
 }
 
 void KeyGame::draw()
 {
 	player.draw();
-	monster.draw();
+	level.draw();
 }
 
 KeyGame::KeyGame(std::string title, Vector2i size, Uint32 flags) :
 	Game(title, size, flags),
 	player(renderer, "monster.bmp", true),
-	monster(renderer, "TileFloor.bmp", false),
-	test("level1.txt")
+	level("level1.txt", renderer)
 {
-	monster.setPosition(Vector2f(0.f, 200.f));
+	player.setPosition(Vector2f(64.f, 64.f));
 	player.setGravity(300.f);
 
 	inputManager.setInputs(SDL_SCANCODE_A, SDL_SCANCODE_D);

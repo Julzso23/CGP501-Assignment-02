@@ -9,9 +9,8 @@ class KeyGame : public Game
 {
 private:
 	Player player;
-	Player monster;
 
-	Level test;
+	Level level;
 
 	InputManager inputManager;
 
