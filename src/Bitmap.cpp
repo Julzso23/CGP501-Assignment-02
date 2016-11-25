@@ -38,11 +38,11 @@ Bitmap::~Bitmap()
 	}
 }
 
-void Bitmap::draw()
+void Bitmap::draw(Vector2f cameraPosition)
 {
 	if (texture)
 	{
-		SDL_Rect rect = {(int)floor(getPosition().x), (int)floor(getPosition().y), surface->w, surface->h};
+		SDL_Rect rect = {(int)floor(getPosition().x - cameraPosition.x), (int)floor(getPosition().y - cameraPosition.y), surface->w, surface->h};
 		SDL_RenderCopy(renderer, texture, NULL, &rect);
 	}
 }

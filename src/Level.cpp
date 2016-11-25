@@ -38,11 +38,11 @@ Level::Level(std::string fileName, SDL_Renderer* renderer) :
 	file.close();
 }
 
-void Level::draw()
+void Level::draw(Vector2f cameraPosition)
 {
 	for (std::shared_ptr<Tile>& tile : tiles)
 	{
-		tile->draw();
+		tile->draw(cameraPosition);
 	}
 }
 

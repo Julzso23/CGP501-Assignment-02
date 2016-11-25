@@ -13,12 +13,17 @@ void KeyGame::update(float deltaTime)
 	player.move(value * 200.f, deltaTime);
 
 	level.updateCollisions(player);
+
+	int windowW, windowH;
+	SDL_GetWindowSize(window, &windowW, &windowH);
+	Vector2f newCameraPosition(player.getPosition().x - windowW / 2.f, player.getPosition().y - windowH / 2.f);
+	cameraPosition = Vector2f::lerp(cameraPosition, newCameraPosition, deltaTime * 3.f);
 }
 
 void KeyGame::draw()
 {
-	player.draw();
-	level.draw();
+	player.draw(cameraPosition);
+	level.draw(cameraPosition);
 }
 
 KeyGame::KeyGame(std::string title, Vector2i size, Uint32 flags) :
@@ -27,7 +32,7 @@ KeyGame::KeyGame(std::string title, Vector2i size, Uint32 flags) :
 	level("level1.txt", renderer)
 {
 	player.setPosition(Vector2f(64.f, 64.f));
-	player.setGravity(300.f);
+	player.setGravity(400.f);
 
 	inputManager.setInputs(SDL_SCANCODE_A, SDL_SCANCODE_D);
 }

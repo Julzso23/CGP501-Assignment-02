@@ -34,7 +34,7 @@ void Player::jump()
 {
 	if (grounded)
 	{
-		setVelocity(Vector2f(getVelocity().x, -200.f));
+		setVelocity(Vector2f(getVelocity().x, -300.f));
 	}
 }
 

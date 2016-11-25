@@ -13,5 +13,5 @@ protected:
 public:
 	Bitmap(SDL_Renderer* renderer, std::string path, bool hasTransparency = false);
 	~Bitmap();
-	void draw();
+	void draw(Vector2f cameraPosition);
 };

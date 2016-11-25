@@ -9,10 +9,9 @@ class KeyGame : public Game
 {
 private:
 	Player player;
-
 	Level level;
-
 	InputManager inputManager;
+	Vector2f cameraPosition;
 
 	void update(float deltaTime);
 	void draw();

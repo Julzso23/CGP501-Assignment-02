@@ -15,6 +15,6 @@ private:
 public:
 	Level(std::string fileName, SDL_Renderer* renderer);
 
-	void draw();
+	void draw(Vector2f cameraPosition);
 	void updateCollisions(Player& player);
 };
