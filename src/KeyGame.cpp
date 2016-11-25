@@ -31,7 +31,7 @@ KeyGame::KeyGame(std::string title, Vector2i size, Uint32 flags) :
 	player(renderer, "monster.bmp", true),
 	level("level1.txt", renderer)
 {
-	player.setPosition(Vector2f(64.f, 64.f));
+	player.setPosition(level.getPlayerStart());
 	player.setGravity(400.f);
 
 	inputManager.setInputs(SDL_SCANCODE_A, SDL_SCANCODE_D);

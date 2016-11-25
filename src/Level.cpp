@@ -32,6 +32,12 @@ Level::Level(std::string fileName, SDL_Renderer* renderer) :
 				position = Vector2f(0.f, position.y + 64.f);
 				break;
 			}
+			case 'p':
+			{
+				playerStart = position;
+				position.x += 64.f;
+				break;
+			}
 		}
 	}
 
@@ -52,4 +58,9 @@ void Level::updateCollisions(Player & player)
 	{
 		player.updateCollisions(*tile.get());
 	}
+}
+
+Vector2f Level::getPlayerStart()
+{
+	return playerStart;
 }
