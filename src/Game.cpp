@@ -24,7 +24,7 @@ Game::Game(std::string title, Vector2i size, Uint32 flags) :
 		return;
 	}
 
-	renderer = SDL_CreateRenderer(window, -1, 0);
+	renderer = SDL_CreateRenderer(window, -1, NULL);
 	if (!renderer)
 	{
 		MessageBox(NULL, SDL_GetError(), "Renderer initialisation failed", MB_ICONERROR | MB_OK);
