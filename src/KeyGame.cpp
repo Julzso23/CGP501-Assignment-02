@@ -10,7 +10,7 @@ void KeyGame::update(float deltaTime)
 	}
 
 	float value = inputManager.getAxis();
-	player.move(value * 200.f, deltaTime);
+	player.move(value * 400.f, deltaTime);
 
 	levelManager.updateCollisions(player);
 
@@ -31,7 +31,7 @@ KeyGame::KeyGame(std::string title, Vector2i size, Uint32 flags) :
 	player(renderer, "monster.bmp", true),
 	levelManager(player, {"level2.txt"}, renderer)
 {
-	player.setGravity(400.f);
+	player.setGravity(1000.f);
 
 	inputManager.setInputs(SDL_SCANCODE_A, SDL_SCANCODE_D);
 }
