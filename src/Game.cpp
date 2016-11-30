@@ -17,7 +17,10 @@ Game::Game(std::string title, Vector2i size, Uint32 flags) :
 {
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER);
 
-	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, size.x, size.y, flags);
+	SDL_Rect displayRect;
+	SDL_GetDisplayBounds(0, &displayRect);
+
+	window = SDL_CreateWindow(title.c_str(), displayRect.x + displayRect.w / 2.f, displayRect.y + displayRect.h / 2.f, size.x, size.y, flags);
 	if (!window)
 	{
 		MessageBox(NULL, SDL_GetError(), "Window initialisation failed", MB_ICONERROR | MB_OK);
@@ -30,6 +33,11 @@ Game::Game(std::string title, Vector2i size, Uint32 flags) :
 		MessageBox(NULL, SDL_GetError(), "Renderer initialisation failed", MB_ICONERROR | MB_OK);
 		return;
 	}
+
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, 0); // Nearest neighbor scaling
+	int width, height;
+	SDL_GetWindowSize(window, &width, &height);
+	SDL_RenderSetLogicalSize(renderer, size.x, (int)floor((size.x / (float)width) * height));
 }
 
 Game::~Game()
