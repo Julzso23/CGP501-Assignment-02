@@ -17,10 +17,8 @@ Game::Game(std::string title, Vector2i size, Uint32 flags) :
 {
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER);
 
-	SDL_Rect displayRect;
-	SDL_GetDisplayBounds(0, &displayRect);
-
-	window = SDL_CreateWindow(title.c_str(), displayRect.x + displayRect.w / 2.f, displayRect.y + displayRect.h / 2.f, size.x, size.y, flags);
+	const int displayId = 1;
+	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED_DISPLAY(displayId), SDL_WINDOWPOS_CENTERED_DISPLAY(displayId), size.x, size.y, flags);
 	if (!window)
 	{
 		MessageBox(NULL, SDL_GetError(), "Window initialisation failed", MB_ICONERROR | MB_OK);
