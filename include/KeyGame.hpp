@@ -3,13 +3,13 @@
 #include "Game.hpp"
 #include "Player.hpp"
 #include "InputManager.hpp"
-#include "Level.hpp"
+#include "LevelManager.hpp"
 
 class KeyGame : public Game
 {
 private:
 	Player player;
-	Level level;
+	LevelManager levelManager;
 	InputManager inputManager;
 	Vector2f cameraPosition;
 

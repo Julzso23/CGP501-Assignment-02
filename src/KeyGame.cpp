@@ -12,7 +12,7 @@ void KeyGame::update(float deltaTime)
 	float value = inputManager.getAxis();
 	player.move(value * 200.f, deltaTime);
 
-	level.updateCollisions(player);
+	levelManager.updateCollisions(player);
 
 	int windowW, windowH;
 	SDL_GetWindowSize(window, &windowW, &windowH);
@@ -23,15 +23,14 @@ void KeyGame::update(float deltaTime)
 void KeyGame::draw()
 {
 	player.draw(cameraPosition);
-	level.draw(cameraPosition);
+	levelManager.draw(cameraPosition);
 }
 
 KeyGame::KeyGame(std::string title, Vector2i size, Uint32 flags) :
 	Game(title, size, flags),
 	player(renderer, "monster.bmp", true),
-	level("level1.txt", renderer)
+	levelManager(player, {"level2.txt"}, renderer)
 {
-	player.setPosition(level.getPlayerStart());
 	player.setGravity(400.f);
 
 	inputManager.setInputs(SDL_SCANCODE_A, SDL_SCANCODE_D);
