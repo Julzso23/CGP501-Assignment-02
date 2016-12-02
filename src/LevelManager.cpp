@@ -1,10 +1,10 @@
 #include "LevelManager.hpp"
 
-LevelManager::LevelManager(Player& player, std::vector<std::string> levelNames, SDL_Renderer* renderer)
+LevelManager::LevelManager(std::vector<std::string> levelNames, SDL_Renderer* renderer) :
+	randomEngine(randomDevice())
 {
 	loadLevels(levelNames, renderer);
 	shuffle();
-	player.setPosition(levels.front()->getPlayerStart());
 }
 
 void LevelManager::loadLevels(std::vector<std::string> levelNames, SDL_Renderer * renderer)
@@ -17,7 +17,7 @@ void LevelManager::loadLevels(std::vector<std::string> levelNames, SDL_Renderer 
 
 void LevelManager::shuffle()
 {
-	std::random_shuffle(levels.begin(), levels.end());
+	std::shuffle(levels.begin(), levels.end(), randomEngine);
 }
 
 void LevelManager::draw(Vector2f cameraPosition)
@@ -28,4 +28,14 @@ void LevelManager::draw(Vector2f cameraPosition)
 void LevelManager::updateCollisions(Player& player)
 {
 	levels.front()->updateCollisions(player);
+}
+
+void LevelManager::nextLevel()
+{
+	levels.pop_front();
+}
+
+std::shared_ptr<Level> LevelManager::getCurrent()
+{
+	return levels.front();
 }
