@@ -29,8 +29,9 @@ void KeyGame::draw()
 KeyGame::KeyGame(std::string title, Vector2i size, Uint32 flags) :
 	Game(title, size, flags),
 	player(renderer, "monster.bmp", true),
-	levelManager(player, {"level2.txt"}, renderer)
+	levelManager({"level1.txt", "level2.txt"}, renderer)
 {
+	player.setPosition(levelManager.getCurrent()->getPlayerStart());
 	player.setGravity(1000.f);
 
 	inputManager.setInputs(SDL_SCANCODE_A, SDL_SCANCODE_D);
