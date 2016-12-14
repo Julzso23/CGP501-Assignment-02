@@ -16,5 +16,5 @@ private:
 	void update(float deltaTime);
 	void draw();
 public:
-	KeyGame(std::string title, Vector2i size, Uint32 flags);
+	KeyGame();
 };

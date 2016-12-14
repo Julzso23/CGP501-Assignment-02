@@ -26,8 +26,7 @@ void KeyGame::draw()
 	levelManager.draw(cameraPosition);
 }
 
-KeyGame::KeyGame(std::string title, Vector2i size, Uint32 flags) :
-	Game(title, size, flags),
+KeyGame::KeyGame() :
 	player(renderer, "monster.bmp", true),
 	levelManager({"level1.txt", "level2.txt"}, renderer)
 {

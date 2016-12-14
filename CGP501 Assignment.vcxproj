@@ -136,10 +136,12 @@
     <ClInclude Include="include\Player.hpp" />
     <ClInclude Include="include\Tile.hpp" />
     <ClInclude Include="include\Transformable.hpp" />
+    <ClInclude Include="include\Utility.hpp" />
     <ClInclude Include="include\Vector2.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="config.terribleFormat" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\InputManager.cpp" />
@@ -153,6 +155,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Tile.cpp" />
     <ClCompile Include="src\Transformable.cpp" />
+    <ClCompile Include="src\Utility.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
