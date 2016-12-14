@@ -28,7 +28,7 @@ void KeyGame::draw()
 
 KeyGame::KeyGame() :
 	player(renderer, "monster.bmp", true),
-	levelManager({"level1.txt", "level2.txt"}, renderer)
+	levelManager({"level1", "level2"}, renderer)
 {
 	player.setPosition(levelManager.getCurrent()->getPlayerStart());
 	player.setGravity(1000.f);

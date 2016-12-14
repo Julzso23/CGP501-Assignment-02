@@ -5,7 +5,7 @@ Level::Level(std::string fileName, SDL_Renderer* renderer) :
 	renderer(renderer)
 {
 	std::ifstream file;
-	file.open("resources/levels/" + fileName);
+	file.open("resources/levels/" + fileName + ".level");
 
 	Vector2f position;
 
