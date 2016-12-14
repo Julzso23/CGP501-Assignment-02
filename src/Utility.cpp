@@ -15,4 +15,19 @@ namespace Utility
 		}
 		return output;
 	}
+
+	std::string trim(std::string input)
+	{
+		const std::size_t start = input.find_first_not_of(" \t");
+
+		if (start == std::string::npos)
+		{
+			return "";
+		}
+
+		const std::size_t end = input.find_last_not_of(" \t");
+		const std::size_t range = end - start + 1;
+
+		return input.substr(start, range);
+	}
 }

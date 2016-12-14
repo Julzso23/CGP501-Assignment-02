@@ -15,6 +15,11 @@ void Game::loadConfig(std::string fileName)
 		std::getline(file, line);
 
 		std::vector<std::string> elements = Utility::split(line, ':');
+
+		// Trim out any outer whitespace
+		elements[0] = Utility::trim(elements[0]);
+		elements[1] = Utility::trim(elements[1]);
+
 		if (elements[0] == "title")
 		{
 			config.title = elements[1];
