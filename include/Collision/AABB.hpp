@@ -2,6 +2,7 @@
 
 #include "Transformable.hpp"
 #include "Collision\Hit.hpp"
+#include "Collision\Segment.hpp"
 
 class AABB : public Transformable
 {
@@ -15,4 +16,5 @@ public:
 	Vector2f getCentre();
 
 	Hit testIntersection(Vector2f point);
+	Hit testIntersection(Segment segment, Vector2f padding);
 };

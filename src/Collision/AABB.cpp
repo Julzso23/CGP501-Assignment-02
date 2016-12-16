@@ -56,3 +56,53 @@ Hit AABB::testIntersection(Vector2f point)
 
 	return result;
 }
+
+Hit AABB::testIntersection(Segment segment, Vector2f padding)
+{
+	Hit result;
+
+	Vector2f scale = Vector2f(1.f / segment.delta.x, 1.f / segment.delta.y);
+	Vector2f sign = Vector2f(Utility::sign(scale.x), Utility::sign(scale.y));
+
+	Vector2f nearTimes, farTimes;
+
+	nearTimes.x = (getPosition().x - sign.x * (getHalf().x + padding.x) - segment.position.x) * scale.x;
+	nearTimes.y = (getPosition().y - sign.y * (getHalf().y + padding.y) - segment.position.y) * scale.y;
+
+	farTimes.x = (getPosition().x + sign.x * (getHalf().x + padding.x) - segment.position.x) * scale.x;
+	farTimes.y = (getPosition().y + sign.y * (getHalf().y + padding.y) - segment.position.y) * scale.y;
+
+	if (nearTimes.x > farTimes.y || nearTimes.y > farTimes.x)
+	{
+		result.hit = false;
+		return result;
+	}
+
+	float nearTime = nearTimes.x > nearTimes.y ? nearTimes.x : nearTimes.y;
+	float farTime = farTimes.x < farTimes.y ? farTimes.x : farTimes.y;
+
+	if (nearTime >= 1.f || farTime <= 0.f)
+	{
+		result.hit = false;
+		return result;
+	}
+
+	result.time = Utility::clamp(nearTime, 0.f, 1.f);
+
+	if (nearTimes.x > nearTimes.y)
+	{
+		result.normal.x = -sign.x;
+		result.normal.y = 0.f;
+	}
+	else
+	{
+		result.normal.x = 0.f;
+		result.normal.y = -sign.y;
+	}
+
+	result.delta = segment.delta * result.time;
+
+	result.position = segment.position + result.delta;
+
+	return result;
+}
