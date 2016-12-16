@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Transformable.hpp"
+#include "Collision\Hit.hpp"
 
 class AABB : public Transformable
 {
@@ -12,4 +13,6 @@ public:
 	Vector2f getSize();
 	Vector2f getHalf();
 	Vector2f getCentre();
+
+	Hit testIntersection(Vector2f point);
 };
