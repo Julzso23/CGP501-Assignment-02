@@ -30,4 +30,9 @@ namespace Utility
 
 		return input.substr(start, range);
 	}
+
+	Vector2f lerp(const Vector2f& start, const Vector2f& end, float percent)
+	{
+		return start + (end - start) * percent;
+	}
 }
