@@ -1,4 +1,5 @@
 #include "KeyGame.hpp"
+#include "Utility.hpp"
 
 void KeyGame::update(float deltaTime)
 {
@@ -17,7 +18,7 @@ void KeyGame::update(float deltaTime)
 	int renderW, renderH;
 	SDL_RenderGetLogicalSize(renderer, &renderW, &renderH);
 	Vector2f newCameraPosition(player.getPosition().x - renderW / 2.f, player.getPosition().y - renderH / 2.f);
-	cameraPosition = Vector2f::lerp(cameraPosition, newCameraPosition, deltaTime * 3.f);
+	cameraPosition = Utility::lerp(cameraPosition, newCameraPosition, deltaTime * 3.f);
 }
 
 void KeyGame::draw()
