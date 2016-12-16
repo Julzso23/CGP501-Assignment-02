@@ -128,6 +128,10 @@
     <ClInclude Include="include\Bitmap.hpp" />
     <ClInclude Include="include\CollisionObject.hpp" />
     <ClInclude Include="include\CollisionResponse.hpp" />
+    <ClInclude Include="include\Collision\AABB.hpp" />
+    <ClInclude Include="include\Collision\Hit.hpp" />
+    <ClInclude Include="include\Collision\Segment.hpp" />
+    <ClInclude Include="include\Collision\Sweep.hpp" />
     <ClInclude Include="include\Game.hpp" />
     <ClInclude Include="include\InputManager.hpp" />
     <ClInclude Include="include\KeyGame.hpp" />
@@ -144,6 +148,7 @@
     <None Include="config.terribleFormat" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Collision\AABB.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\LevelManager.cpp" />

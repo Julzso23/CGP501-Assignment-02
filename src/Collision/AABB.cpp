@@ -11,6 +11,11 @@ Vector2f AABB::getSize()
 	return size;
 }
 
+void AABB::setSize(Vector2f size)
+{
+	this->size = size;
+}
+
 Vector2f AABB::getHalf()
 {
 	return size / 2.f;
@@ -36,10 +41,13 @@ Hit AABB::testIntersection(Vector2f point)
 	if (collisionPoint.x < collisionPoint.y)
 	{
 		float signX = Utility::sign(difference.x);
+
 		result.delta.x = collisionPoint.x * signX;
 		result.delta.y = 0.f;
+
 		result.normal.x = signX;
 		result.normal.y = 0.f;
+
 		result.position.x = getPosition().x + (getHalf().x * signX);
 		result.position.y = point.y;
 
@@ -47,10 +55,13 @@ Hit AABB::testIntersection(Vector2f point)
 	}
 
 	float signY = Utility::sign(difference.y);
+
 	result.delta.x = 0.f;
 	result.delta.y = collisionPoint.y * signY;
+
 	result.normal.x = 0.f;
 	result.normal.y = signY;
+
 	result.position.x = point.x;
 	result.position.y = getPosition().y + (getHalf().y * signY);
 
@@ -105,4 +116,86 @@ Hit AABB::testIntersection(Segment segment, Vector2f padding)
 	result.position = segment.position + result.delta;
 
 	return result;
+}
+
+Hit AABB::testIntersection(AABB & other)
+{
+	Hit result;
+
+	Vector2f difference = other.getPosition() - getPosition();
+	Vector2f collisionPoint = (other.getHalf() + getHalf()) - Vector2f(abs(difference.x), abs(difference.y));
+
+	if (collisionPoint.x <= 0.f || collisionPoint.y <= 0.f)
+	{
+		result.hit = false;
+		return result;
+	}
+
+	if (collisionPoint.x < collisionPoint.y)
+	{
+		float signX = Utility::sign(difference.x);
+
+		result.delta.x = collisionPoint.x * signX;
+		result.delta.y = 0.f;
+
+		result.normal.x = signX;
+		result.normal.y = 0.f;
+
+		result.position.x = getPosition().x + (getHalf().x * signX);
+		result.position.y = other.getPosition().y;
+
+		return result;
+	}
+
+	float signY = Utility::sign(difference.y);
+
+	result.delta.x = 0.f;
+	result.delta.y = collisionPoint.y * signY;
+
+	result.normal.x = 0.f;
+	result.normal.y = signY;
+
+	result.position.x = other.getPosition().x;
+	result.position.y = getPosition().y + (getHalf().y * signY);
+
+	return result;
+}
+
+Sweep AABB::sweepIntersection(AABB& other, Vector2f delta)
+{
+	Sweep sweep;
+
+	if (delta.x == 0.f && delta.y == 0.f)
+	{
+		sweep.position = other.getPosition();
+		sweep.hit = testIntersection(other);
+		if (sweep.hit.hit)
+		{
+			sweep.time = 0.f;
+		}
+		else
+		{
+			sweep.time = 1.f;
+		}
+	}
+
+	sweep.hit = testIntersection({ other.getPosition(), delta }, other.getHalf());
+
+	if (sweep.hit.hit)
+	{
+		sweep.time = Utility::clamp(sweep.hit.time - 1e-8f, 0.f, 1.f);
+
+		sweep.position = other.getPosition() + delta * sweep.time;
+
+		Vector2f direction = delta.normalise();
+
+		sweep.hit.position += Vector2f(direction.x * other.getHalf().x, direction.y * other.getHalf().y);
+
+		return sweep;
+	}
+
+	sweep.position = other.getPosition() + delta;
+	sweep.time = 1.f;
+
+	return sweep;
 }
