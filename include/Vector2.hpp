@@ -10,15 +10,15 @@ public:
 	Vector2(T x, T y);
 	Vector2<T> operator+(const Vector2<T>& other) const;
 	Vector2<T> operator-(const Vector2<T>& other) const;
-	Vector2<T> operator*(float scalar);
+	Vector2<T> operator*(T scalar);
+	Vector2<T> operator/(T scalar);
 	void operator+=(const Vector2<T>& other);
 	void operator-=(const Vector2<T>& other);
 
-	static Vector2<T> lerp(const Vector2<T>& start, const Vector2<T>& end, float percent);
+	T lengthSqr();
+	T length();
+	Vector2<T> normalise();
 };
-
-template <typename T>
-Vector2<T> operator*(float left, Vector2<T> right);
 
 typedef Vector2<float> Vector2f;
 typedef Vector2<int> Vector2i;

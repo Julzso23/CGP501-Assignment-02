@@ -1,4 +1,5 @@
 #include "Vector2.hpp"
+#include <cmath>
 
 template<typename T>
 Vector2<T>::Vector2() :
@@ -27,9 +28,15 @@ Vector2<T> Vector2<T>::operator-(const Vector2<T>& other) const
 }
 
 template<typename T>
-Vector2<T> Vector2<T>::operator*(float scalar)
+Vector2<T> Vector2<T>::operator*(T scalar)
 {
 	return Vector2<T>(x * scalar, y * scalar);
+}
+
+template<typename T>
+Vector2<T> Vector2<T>::operator/(T scalar)
+{
+	return operator*((T)1 / scalar);
 }
 
 template<typename T>
@@ -47,15 +54,21 @@ void Vector2<T>::operator-=(const Vector2<T>& other)
 }
 
 template<typename T>
-Vector2<T> Vector2<T>::lerp(const Vector2<T>& start, const Vector2<T>& end, float percent)
+T Vector2<T>::lengthSqr()
 {
-	return start + percent * (end - start);
+	return (T)(pow(x, 2) + pow(y, 2));
 }
 
-template <typename T>
-Vector2<T> operator*(float left, Vector2<T> right)
+template<typename T>
+T Vector2<T>::length()
 {
-	return right * left;
+	return (T)sqrt(lengthSqr());
+}
+
+template<typename T>
+Vector2<T> Vector2<T>::normalise()
+{
+	return operator/(length());
 }
 
 template Vector2<float>;
