@@ -5,7 +5,7 @@
 #include "Collision\Segment.hpp"
 #include "Collision\Sweep.hpp"
 
-class AABB : public Transformable
+class AABB : public virtual Transformable
 {
 private:
 	Vector2f size;

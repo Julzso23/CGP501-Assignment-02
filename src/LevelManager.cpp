@@ -25,9 +25,9 @@ void LevelManager::draw(Vector2f cameraPosition)
 	levels.front()->draw(cameraPosition);
 }
 
-void LevelManager::updateCollisions(Player& player)
+Sweep LevelManager::sweepIntersection(AABB& object, Vector2f delta)
 {
-	levels.front()->updateCollisions(player);
+    return levels.front()->sweepIntersection(object, delta);
 }
 
 void LevelManager::nextLevel()

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "CollisionObject.hpp"
+#include "Collision/AABB.hpp"
 #include "Bitmap.hpp"
 
-class Tile : public CollisionObject, public Bitmap
+class Tile : public AABB, public Bitmap
 {
 public:
 	Tile(SDL_Renderer* renderer, std::string path, bool hasTransparency = false);

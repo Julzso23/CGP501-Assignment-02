@@ -16,7 +16,7 @@ public:
 	Level(std::string fileName, SDL_Renderer* renderer);
 
 	void draw(Vector2f cameraPosition);
-	void updateCollisions(Player& player);
+    Sweep sweepIntersection(AABB& object, Vector2f delta);
 
 	Vector2f getPlayerStart();
 };

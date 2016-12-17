@@ -11,9 +11,10 @@ void KeyGame::update(float deltaTime)
 	}
 
 	float value = inputManager.getAxis();
-	player.move(value * 400.f, deltaTime);
+	player.setMoveDirection(value * 400.f, deltaTime);
 
-	levelManager.updateCollisions(player);
+    Sweep result = levelManager.sweepIntersection(player, player.getVelocity() * deltaTime);
+    player.move(player.getVelocity() * deltaTime * result.time + result.hit.normal);
 
 	int renderW, renderH;
 	SDL_RenderGetLogicalSize(renderer, &renderW, &renderH);

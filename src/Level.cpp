@@ -52,12 +52,26 @@ void Level::draw(Vector2f cameraPosition)
 	}
 }
 
-void Level::updateCollisions(Player & player)
+Sweep Level::sweepIntersection(AABB& object, Vector2f delta)
 {
-	for (std::shared_ptr<Tile>& tile : tiles)
-	{
-		player.updateCollisions(*tile.get());
-	}
+    Sweep nearest;
+    nearest.time = 1.f;
+    nearest.position = object.getPosition() + delta;
+
+    for (std::shared_ptr<Tile>& tile : tiles)
+    {
+        // Make a rough check to see if the tile is close enough to be worth testing
+        if ((object.getCentre() - tile->getCentre()).length() <= 100.f)
+        {
+            Sweep sweep = tile->sweepIntersection(object, delta);
+            if (sweep.time < nearest.time)
+            {
+                nearest = sweep;
+            }
+        }
+    }
+
+    return nearest;
 }
 
 Vector2f Level::getPlayerStart()

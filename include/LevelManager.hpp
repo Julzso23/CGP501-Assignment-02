@@ -21,7 +21,7 @@ public:
 	void shuffle();
 
 	void draw(Vector2f cameraPosition);
-	void updateCollisions(Player& player);
+    Sweep sweepIntersection(AABB& object, Vector2f delta);
 
 	void nextLevel();
 
