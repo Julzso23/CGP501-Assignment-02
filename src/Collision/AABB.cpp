@@ -29,7 +29,7 @@ Vector2f AABB::getCentre()
 Hit AABB::testIntersection(Vector2f point)
 {
 	Hit result;
-	Vector2f difference = point - getPosition();
+	Vector2f difference = point - getCentre();
 	Vector2f collisionPoint = getHalf() - Vector2f(abs(difference.x), abs(difference.y));
 
 	if (collisionPoint.x <= 0.f || collisionPoint.y <= 0.f)
@@ -48,7 +48,7 @@ Hit AABB::testIntersection(Vector2f point)
 		result.normal.x = signX;
 		result.normal.y = 0.f;
 
-		result.position.x = getPosition().x + (getHalf().x * signX);
+		result.position.x = getCentre().x + (getHalf().x * signX);
 		result.position.y = point.y;
 
 		return result;
@@ -63,7 +63,7 @@ Hit AABB::testIntersection(Vector2f point)
 	result.normal.y = signY;
 
 	result.position.x = point.x;
-	result.position.y = getPosition().y + (getHalf().y * signY);
+	result.position.y = getCentre().y + (getHalf().y * signY);
 
 	return result;
 }
@@ -77,11 +77,11 @@ Hit AABB::testIntersection(Segment segment, Vector2f padding)
 
 	Vector2f nearTimes, farTimes;
 
-	nearTimes.x = (getPosition().x - sign.x * (getHalf().x + padding.x) - segment.position.x) * scale.x;
-	nearTimes.y = (getPosition().y - sign.y * (getHalf().y + padding.y) - segment.position.y) * scale.y;
+	nearTimes.x = (getCentre().x - sign.x * (getHalf().x + padding.x) - segment.position.x) * scale.x;
+	nearTimes.y = (getCentre().y - sign.y * (getHalf().y + padding.y) - segment.position.y) * scale.y;
 
-	farTimes.x = (getPosition().x + sign.x * (getHalf().x + padding.x) - segment.position.x) * scale.x;
-	farTimes.y = (getPosition().y + sign.y * (getHalf().y + padding.y) - segment.position.y) * scale.y;
+	farTimes.x = (getCentre().x + sign.x * (getHalf().x + padding.x) - segment.position.x) * scale.x;
+	farTimes.y = (getCentre().y + sign.y * (getHalf().y + padding.y) - segment.position.y) * scale.y;
 
 	if (nearTimes.x > farTimes.y || nearTimes.y > farTimes.x)
 	{
@@ -118,11 +118,11 @@ Hit AABB::testIntersection(Segment segment, Vector2f padding)
 	return result;
 }
 
-Hit AABB::testIntersection(AABB & other)
+Hit AABB::testIntersection(AABB& other)
 {
 	Hit result;
 
-	Vector2f difference = other.getPosition() - getPosition();
+	Vector2f difference = other.getCentre() - getCentre();
 	Vector2f collisionPoint = (other.getHalf() + getHalf()) - Vector2f(abs(difference.x), abs(difference.y));
 
 	if (collisionPoint.x <= 0.f || collisionPoint.y <= 0.f)
@@ -141,8 +141,8 @@ Hit AABB::testIntersection(AABB & other)
 		result.normal.x = signX;
 		result.normal.y = 0.f;
 
-		result.position.x = getPosition().x + (getHalf().x * signX);
-		result.position.y = other.getPosition().y;
+		result.position.x = getCentre().x + (getHalf().x * signX);
+		result.position.y = other.getCentre().y;
 
 		return result;
 	}
@@ -155,8 +155,8 @@ Hit AABB::testIntersection(AABB & other)
 	result.normal.x = 0.f;
 	result.normal.y = signY;
 
-	result.position.x = other.getPosition().x;
-	result.position.y = getPosition().y + (getHalf().y * signY);
+	result.position.x = other.getCentre().x;
+	result.position.y = getCentre().y + (getHalf().y * signY);
 
 	return result;
 }
@@ -167,7 +167,7 @@ Sweep AABB::sweepIntersection(AABB& other, Vector2f delta)
 
 	if (delta.x == 0.f && delta.y == 0.f)
 	{
-		sweep.position = other.getPosition();
+		sweep.position = other.getCentre();
 		sweep.hit = testIntersection(other);
 		if (sweep.hit.hit)
 		{
@@ -177,15 +177,17 @@ Sweep AABB::sweepIntersection(AABB& other, Vector2f delta)
 		{
 			sweep.time = 1.f;
 		}
+
+        return sweep;
 	}
 
-	sweep.hit = testIntersection({ other.getPosition(), delta }, other.getHalf());
+	sweep.hit = testIntersection({ other.getCentre(), delta }, other.getHalf());
 
 	if (sweep.hit.hit)
 	{
 		sweep.time = Utility::clamp(sweep.hit.time - 1e-8f, 0.f, 1.f);
 
-		sweep.position = other.getPosition() + delta * sweep.time;
+		sweep.position = other.getCentre() + delta * sweep.time;
 
 		Vector2f direction = delta.normalise();
 
@@ -194,7 +196,7 @@ Sweep AABB::sweepIntersection(AABB& other, Vector2f delta)
 		return sweep;
 	}
 
-	sweep.position = other.getPosition() + delta;
+	sweep.position = other.getCentre() + delta;
 	sweep.time = 1.f;
 
 	return sweep;
