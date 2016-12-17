@@ -126,8 +126,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\Bitmap.hpp" />
-    <ClInclude Include="include\CollisionObject.hpp" />
-    <ClInclude Include="include\CollisionResponse.hpp" />
     <ClInclude Include="include\Collision\AABB.hpp" />
     <ClInclude Include="include\Collision\Hit.hpp" />
     <ClInclude Include="include\Collision\Segment.hpp" />
@@ -154,7 +152,6 @@
     <ClCompile Include="src\LevelManager.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Bitmap.cpp" />
-    <ClCompile Include="src\CollisionObject.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\KeyGame.cpp" />
     <ClCompile Include="src\main.cpp" />
