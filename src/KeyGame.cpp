@@ -13,8 +13,26 @@ void KeyGame::update(float deltaTime)
 	float value = inputManager.getAxis();
 	player.setMoveDirection(value * 400.f, deltaTime);
 
-    Sweep result = levelManager.sweepIntersection(player, player.getVelocity() * deltaTime);
-    player.move(player.getVelocity() * deltaTime * result.time + result.hit.normal);
+    Vector2f velocity = player.getVelocity();
+
+    Sweep result = levelManager.sweepIntersection(player, velocity * deltaTime);
+
+    if (result.time != 1.f)
+    {
+        float dotProduct = (velocity.x * result.hit.normal.y + velocity.y * result.hit.normal.x) * (1.f - result.time);
+        velocity.x = result.hit.normal.y * dotProduct;
+        velocity.y = result.hit.normal.x * dotProduct;
+    }
+
+    if (result.time == 0.f)
+    {
+        player.move(result.hit.delta);
+        player.onCollision(result.hit.normal);
+        result = levelManager.sweepIntersection(player, velocity * deltaTime);
+    }
+
+    player.move(velocity * deltaTime);
+
     if (result.hit.hit)
     {
         player.onCollision(result.hit.normal);
@@ -33,7 +51,7 @@ void KeyGame::draw()
 }
 
 KeyGame::KeyGame() :
-	player(renderer, "monster.bmp", true),
+	player(renderer, "Player.bmp", true),
 	levelManager({"level1", "level2"}, renderer)
 {
 	player.setPosition(levelManager.getCurrent()->getPlayerStart());
