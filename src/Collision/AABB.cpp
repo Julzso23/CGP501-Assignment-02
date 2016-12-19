@@ -51,6 +51,8 @@ Hit AABB::testIntersection(Vector2f point)
 		result.position.x = getCentre().x + (getHalf().x * signX);
 		result.position.y = point.y;
 
+        result.hit = true;
+
 		return result;
 	}
 
@@ -64,6 +66,8 @@ Hit AABB::testIntersection(Vector2f point)
 
 	result.position.x = point.x;
 	result.position.y = getCentre().y + (getHalf().y * signY);
+
+    result.hit = true;
 
 	return result;
 }
@@ -115,6 +119,8 @@ Hit AABB::testIntersection(Segment segment, Vector2f padding)
 
 	result.position = segment.position + result.delta;
 
+    result.hit = true;
+
 	return result;
 }
 
@@ -144,6 +150,8 @@ Hit AABB::testIntersection(AABB& other)
 		result.position.x = getCentre().x + (getHalf().x * signX);
 		result.position.y = other.getCentre().y;
 
+        result.hit = true;
+
 		return result;
 	}
 
@@ -157,6 +165,8 @@ Hit AABB::testIntersection(AABB& other)
 
 	result.position.x = other.getCentre().x;
 	result.position.y = getCentre().y + (getHalf().y * signY);
+
+    result.hit = true;
 
 	return result;
 }
