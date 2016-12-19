@@ -25,7 +25,7 @@ namespace Utility
 	}
 
 	template <typename T>
-	int sign(T value)
+	T sign(T value)
 	{
 		if (value < 0)
 		{
