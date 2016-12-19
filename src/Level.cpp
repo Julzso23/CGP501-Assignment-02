@@ -55,6 +55,7 @@ void Level::draw(Vector2f cameraPosition)
 Sweep Level::sweepIntersection(AABB& object, Vector2f delta)
 {
     Sweep nearest;
+    nearest.hit.hit = false;
     nearest.time = 1.f;
     nearest.position = object.getPosition() + delta;
 
