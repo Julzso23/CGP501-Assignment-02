@@ -175,19 +175,17 @@ Sweep AABB::sweepIntersection(AABB& other, Vector2f delta)
 {
 	Sweep sweep;
 
+    sweep.position = other.getCentre();
+    sweep.hit = testIntersection(other);
+    if (sweep.hit.hit)
+    {
+        sweep.time = 0.f;
+        return sweep;
+    }
+
 	if (delta.x == 0.f && delta.y == 0.f)
 	{
-		sweep.position = other.getCentre();
-		sweep.hit = testIntersection(other);
-		if (sweep.hit.hit)
-		{
-			sweep.time = 0.f;
-		}
-		else
-		{
-			sweep.time = 1.f;
-		}
-
+        sweep.time = 1.f;
         return sweep;
 	}
 
