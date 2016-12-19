@@ -54,6 +54,12 @@ void Vector2<T>::operator-=(const Vector2<T>& other)
 }
 
 template<typename T>
+bool Vector2<T>::operator==(const Vector2<T>& other)
+{
+    return (x == other.x) && (y == other.y);
+}
+
+template<typename T>
 T Vector2<T>::lengthSqr()
 {
 	return (T)(pow(x, 2) + pow(y, 2));

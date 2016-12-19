@@ -14,6 +14,7 @@ public:
 	Vector2<T> operator/(T scalar);
 	void operator+=(const Vector2<T>& other);
 	void operator-=(const Vector2<T>& other);
+    bool operator==(const Vector2<T>& other);
 
 	T lengthSqr();
 	T length();
