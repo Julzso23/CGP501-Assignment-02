@@ -26,6 +26,19 @@ void Player::setMoveDirection(float value, float deltaTime)
 	grounded = false;
 }
 
+void Player::onCollision(Vector2f normal)
+{
+    if (normal == Vector2f(0.f, -1.f))
+    {
+        grounded = true;
+        velocity.y = 0.f;
+    }
+    else if (normal == Vector2f(0.f, 1.f))
+    {
+        velocity.y = 0.f;
+    }
+}
+
 Vector2f Player::getVelocity()
 {
     return velocity;

@@ -17,6 +17,8 @@ public:
 
 	void setMoveDirection(float value, float deltaTime);
 
+    void onCollision(Vector2f normal);
+
     Vector2f getVelocity();
 
 	void jump();

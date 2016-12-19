@@ -15,6 +15,10 @@ void KeyGame::update(float deltaTime)
 
     Sweep result = levelManager.sweepIntersection(player, player.getVelocity() * deltaTime);
     player.move(player.getVelocity() * deltaTime * result.time + result.hit.normal);
+    if (result.hit.hit)
+    {
+        player.onCollision(result.hit.normal);
+    }
 
 	int renderW, renderH;
 	SDL_RenderGetLogicalSize(renderer, &renderW, &renderH);
