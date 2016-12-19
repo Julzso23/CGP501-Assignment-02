@@ -47,7 +47,7 @@ void Game::loadConfig(std::string fileName)
 
 void Game::setRenderScale()
 {
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, 0); // Nearest neighbor scaling
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest"); // Nearest neighbor scaling
 	int width, height;
 	SDL_GetWindowSize(window, &width, &height);
 	// Scale the virtual window size based on the width
