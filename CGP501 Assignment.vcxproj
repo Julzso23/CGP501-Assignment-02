@@ -130,6 +130,7 @@
     <ClInclude Include="include\Collision\Hit.hpp" />
     <ClInclude Include="include\Collision\Segment.hpp" />
     <ClInclude Include="include\Collision\Sweep.hpp" />
+    <ClInclude Include="include\Entities\Key.hpp" />
     <ClInclude Include="include\Game.hpp" />
     <ClInclude Include="include\InputManager.hpp" />
     <ClInclude Include="include\KeyGame.hpp" />
@@ -147,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Collision\AABB.cpp" />
+    <ClCompile Include="src\Entities\Key.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\LevelManager.cpp" />
@@ -159,6 +161,9 @@
     <ClCompile Include="src\Transformable.cpp" />
     <ClCompile Include="src\Utility.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\textures\Key.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

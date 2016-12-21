@@ -9,6 +9,8 @@ Level::Level(std::string fileName, SDL_Renderer* renderer) :
 
 	Vector2f position;
 
+    int keyId = 0;
+
 	char tileType;
 	while (file >> std::noskipws >> tileType)
 	{
@@ -38,6 +40,14 @@ Level::Level(std::string fileName, SDL_Renderer* renderer) :
 				position.x += 64.f;
 				break;
 			}
+            case 'k':
+            {
+                std::unique_ptr<Key> key = std::make_unique<Key>(keyId, renderer);
+                key->setPosition(position);
+                keys.insert(keys.end(), std::move(key));
+                keyId++;
+                position.x += 64.f;
+            }
 		}
 	}
 
@@ -50,6 +60,11 @@ void Level::draw(Vector2f cameraPosition)
 	{
 		tile->draw(cameraPosition);
 	}
+
+    for (std::shared_ptr<Key>& key : keys)
+    {
+        key->draw(cameraPosition);
+    }
 }
 
 Sweep Level::sweepIntersection(AABB& object, Vector2f delta)
@@ -73,6 +88,21 @@ Sweep Level::sweepIntersection(AABB& object, Vector2f delta)
     }
 
     return nearest;
+}
+
+std::vector<int> Level::getKeyIntersections(AABB& object)
+{
+    std::vector<int> results;
+
+    for (std::shared_ptr<Key>& key : keys)
+    {
+        if (key->testIntersection(object).hit)
+        {
+            results.insert(results.end(), key->getId());
+        }
+    }
+
+    return results;
 }
 
 Vector2f Level::getPlayerStart()

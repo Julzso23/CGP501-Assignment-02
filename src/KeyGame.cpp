@@ -46,8 +46,8 @@ void KeyGame::update(float deltaTime)
 
 void KeyGame::draw()
 {
+    levelManager.draw(cameraPosition);
 	player.draw(cameraPosition);
-	levelManager.draw(cameraPosition);
 }
 
 KeyGame::KeyGame() :
