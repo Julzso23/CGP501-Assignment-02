@@ -20,9 +20,6 @@ public:
 	void loadLevels(std::vector<std::string> levelNames, SDL_Renderer* renderer);
 	void shuffle();
 
-	void draw(Vector2f cameraPosition);
-    Sweep sweepIntersection(AABB& object, Vector2f delta);
-
 	void nextLevel();
 
 	std::shared_ptr<Level> getCurrent();

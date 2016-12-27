@@ -15,7 +15,7 @@ void KeyGame::update(float deltaTime)
 
     Vector2f velocity = player.getVelocity();
 
-    Sweep result = levelManager.sweepIntersection(player, velocity * deltaTime);
+    Sweep result = levelManager.getCurrent()->sweepIntersection(player, velocity * deltaTime);
 
     if (result.time != 1.f)
     {
@@ -28,7 +28,7 @@ void KeyGame::update(float deltaTime)
     {
         player.move(result.hit.delta);
         player.onCollision(result.hit.normal);
-        result = levelManager.sweepIntersection(player, velocity * deltaTime);
+        result = levelManager.getCurrent()->sweepIntersection(player, velocity * deltaTime);
     }
 
     player.move(velocity * deltaTime);
@@ -46,7 +46,7 @@ void KeyGame::update(float deltaTime)
 
 void KeyGame::draw()
 {
-    levelManager.draw(cameraPosition);
+    levelManager.getCurrent()->draw(cameraPosition);
 	player.draw(cameraPosition);
 }
 

@@ -20,16 +20,6 @@ void LevelManager::shuffle()
 	std::shuffle(levels.begin(), levels.end(), randomEngine);
 }
 
-void LevelManager::draw(Vector2f cameraPosition)
-{
-	levels.front()->draw(cameraPosition);
-}
-
-Sweep LevelManager::sweepIntersection(AABB& object, Vector2f delta)
-{
-    return levels.front()->sweepIntersection(object, delta);
-}
-
 void LevelManager::nextLevel()
 {
 	levels.pop_front();
