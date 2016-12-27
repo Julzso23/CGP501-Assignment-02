@@ -14,4 +14,5 @@ public:
 	Bitmap(SDL_Renderer* renderer, std::string path, bool hasTransparency = false);
 	~Bitmap();
 	void draw(Vector2f cameraPosition);
+    Vector2f getSize();
 };

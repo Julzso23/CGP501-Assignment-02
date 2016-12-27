@@ -46,3 +46,8 @@ void Bitmap::draw(Vector2f cameraPosition)
 		SDL_RenderCopy(renderer, texture, NULL, &rect);
 	}
 }
+
+Vector2f Bitmap::getSize()
+{
+    return Vector2f(surface->w, surface->h);
+}
