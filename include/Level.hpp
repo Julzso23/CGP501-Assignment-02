@@ -14,6 +14,8 @@ private:
 	std::vector<std::shared_ptr<Tile>> tiles;
     std::vector<std::shared_ptr<Key>> keys;
 	Vector2f playerStart;
+
+    static const float tileSize;
 public:
 	Level(std::string fileName, SDL_Renderer* renderer);
 

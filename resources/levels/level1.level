@@ -1,7 +1,8 @@
-﻿wwwwwwwwwwwwwwwwwwwwwww
-w    w                w
-w    w                w
-w    w        k       w
-w p        wwwwwww    w
-w        wwwwwwwwwww  w
-wwwwwwwwwwwwwwwwwwwwwww
+PlayerStart, x: 2, y: 2
+
+Tile, x: 0, y: 0, w: 10, h: 1
+Tile, x: 0, y: 0, w: 1, h: 10
+Tile, x: 0, y: 11, w: 10, h: 1
+Tile, x: 9, y: 0, w: 1, h: 10
+
+Key, x: 256, y: 128

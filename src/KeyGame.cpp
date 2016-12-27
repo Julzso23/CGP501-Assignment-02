@@ -57,7 +57,7 @@ void KeyGame::draw()
 
 KeyGame::KeyGame() :
 	player(renderer, "Player.bmp", true),
-	levelManager({"level1", "level2"}, renderer)
+	levelManager({"level1"}, renderer)
 {
 	player.setPosition(levelManager.getCurrent()->getPlayerStart());
 	player.setGravity(1000.f);

@@ -1,5 +1,9 @@
 #include "Level.hpp"
+#include "Utility.hpp"
 #include <fstream>
+#include <sstream>
+
+const float Level::tileSize = 64.f;
 
 Level::Level(std::string fileName, SDL_Renderer* renderer) :
 	renderer(renderer)
@@ -7,51 +11,85 @@ Level::Level(std::string fileName, SDL_Renderer* renderer) :
 	std::ifstream file;
 	file.open("resources/levels/" + fileName + ".level");
 
-	Vector2f position;
-
     int keyId = 0;
 
-	char tileType;
-	while (file >> std::noskipws >> tileType)
-	{
-		switch (tileType)
-		{
-			case 'w':
-			{
-				std::unique_ptr<Tile> tile = std::make_unique<Tile>(renderer, "TileFloor.bmp");
-				tile->setPosition(position);
-				tiles.insert(tiles.end(), std::move(tile));
-				position.x += 64.f;
-				break;
-			}
-			case ' ':
-			{
-				position.x += 64.f;
-				break;
-			}
-			case '\n':
-			{
-				position = Vector2f(0.f, position.y + 64.f);
-				break;
-			}
-			case 'p':
-			{
-				playerStart = position;
-				position.x += 64.f;
-				break;
-			}
-            case 'k':
-            {
-                std::unique_ptr<Key> key = std::make_unique<Key>(keyId, renderer);
-                key->setPosition(position);
-                keys.insert(keys.end(), std::move(key));
-                keyId++;
-                position.x += 64.f;
-            }
-		}
-	}
+    while (file.good())
+    {
+        std::string object;
+        std::getline(file, object);
 
-	file.close();
+        // Skip empty lines
+        if (object.empty())
+            continue;
+
+        // Split the object into its component parts
+        std::vector<std::string> parts = Utility::split(object, ',');
+
+        // Take the type from the front of the parts
+        std::string type = Utility::trim(parts.front());
+        parts.erase(parts.begin());
+
+        Vector2f position;
+        Vector2f size;
+
+        for (std::string& part : parts)
+        {
+            std::vector<std::string> property = Utility::split(part, ':');
+
+            property[0] = Utility::trim(property[0]);
+            property[1] = Utility::trim(property[1]);
+
+            // Get the first (and hopefully only) character from the property name
+            switch (property[0][0])
+            {
+                case 'x':
+                {
+                    position.x = std::stof(property[1]);
+                    break;
+                }
+                case 'y':
+                {
+                    position.y = std::stof(property[1]);
+                    break;
+                }
+                case 'w':
+                {
+                    size.x = std::stof(property[1]);
+                    break;
+                }
+                case 'h':
+                {
+                    size.y = std::stof(property[1]);
+                    break;
+                }
+            }
+        }
+
+        if (type == "Tile")
+        {
+            // Create a tile at the position, and with the size gathered above
+            std::unique_ptr<Tile> tile = std::make_unique<Tile>(renderer, "TileFloor.bmp", size * tileSize);
+            tile->setPosition(position * tileSize);
+            // Move the tile to the array
+            tiles.insert(tiles.end(), std::move(tile));
+        }
+        else if (type == "Key")
+        {
+            // Create a key at the position gathered above
+            std::unique_ptr<Key> key = std::make_unique<Key>(keyId, renderer);
+            key->setPosition(position * tileSize);
+            // Move the key to the array
+            keys.insert(keys.end(), std::move(key));
+
+            keyId++;
+        }
+        else if (type == "PlayerStart")
+        {
+            playerStart = position * tileSize;
+        }
+    }
+
+    file.close();
 }
 
 void Level::draw(Vector2f cameraPosition)
@@ -76,14 +114,10 @@ Sweep Level::sweepIntersection(AABB& object, Vector2f delta)
 
     for (std::shared_ptr<Tile>& tile : tiles)
     {
-        // Make a rough check to see if the tile is close enough to be worth testing
-        if ((object.getCentre() - tile->getCentre()).length() <= 100.f)
+        Sweep sweep = tile->sweepIntersection(object, delta);
+        if (sweep.time < nearest.time)
         {
-            Sweep sweep = tile->sweepIntersection(object, delta);
-            if (sweep.time < nearest.time)
-            {
-                nearest = sweep;
-            }
+            nearest = sweep;
         }
     }
 

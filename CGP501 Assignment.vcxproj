@@ -145,6 +145,7 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="config.terribleFormat" />
+    <None Include="resources\levels\level1.level" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Collision\AABB.cpp" />
@@ -164,6 +165,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\textures\Key.bmp" />
+    <Image Include="resources\textures\Player.bmp" />
+    <Image Include="resources\textures\TileFloor.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
