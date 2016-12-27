@@ -51,3 +51,23 @@ void Player::jump()
         velocity.y = -500.f;
 	}
 }
+
+void Player::addKey(int keyId)
+{
+    keys.insert(keys.end(), keyId);
+}
+
+void Player::removeKey(int keyId)
+{
+    if (hasKey(keyId))
+    {
+        auto iterator = std::find(keys.begin(), keys.end(), keyId);
+        keys.erase(iterator);
+    }
+}
+
+bool Player::hasKey(int keyId)
+{
+    auto iterator = std::find(keys.begin(), keys.end(), keyId);
+    return iterator != keys.end();
+}

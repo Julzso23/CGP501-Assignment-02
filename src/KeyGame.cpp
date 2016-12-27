@@ -38,6 +38,11 @@ void KeyGame::update(float deltaTime)
         player.onCollision(result.hit.normal);
     }
 
+    for (int keyId : levelManager.getCurrent()->getKeyIntersections(player))
+    {
+        player.addKey(keyId);
+    }
+
 	int renderW, renderH;
 	SDL_RenderGetLogicalSize(renderer, &renderW, &renderH);
 	Vector2f newCameraPosition(player.getPosition().x - renderW / 2.f, player.getPosition().y - renderH / 2.f);

@@ -2,6 +2,7 @@
 
 #include "Collision/AABB.hpp"
 #include "Bitmap.hpp"
+#include <vector>
 
 class Player : public AABB, public Bitmap
 {
@@ -9,6 +10,8 @@ private:
 	float gravity;
 	bool grounded;
     Vector2f velocity;
+
+    std::vector<int> keys;
 public:
 	Player(SDL_Renderer* renderer, std::string path, bool hasTransparency = false);
 
@@ -22,4 +25,8 @@ public:
     Vector2f getVelocity();
 
 	void jump();
+
+    void addKey(int keyId);
+    void removeKey(int keyId);
+    bool hasKey(int keyId);
 };
