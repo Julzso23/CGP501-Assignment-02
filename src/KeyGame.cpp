@@ -17,26 +17,33 @@ void KeyGame::update(float deltaTime)
 
     Sweep result = levelManager.getCurrent()->sweepIntersection(player, velocity * deltaTime);
 
-    if (result.time != 1.f)
-    {
-        float dotProduct = (velocity.x * result.hit.normal.y + velocity.y * result.hit.normal.x) * (1.f - result.time);
-        velocity.x = result.hit.normal.y * dotProduct;
-        velocity.y = result.hit.normal.x * dotProduct;
-    }
-
     if (result.time == 0.f)
     {
         player.move(result.hit.delta);
         player.onCollision(result.hit.normal);
+    }
+
+    while (result.time != 1.f)
+    {
+        float dotProduct = (velocity.x * result.hit.normal.y + velocity.y * result.hit.normal.x) * (1.f - result.time);
+        velocity.x = result.hit.normal.y * dotProduct;
+        //velocity.y = result.hit.normal.x * dotProduct;
+
+        /*if (result.hit.normal.x != 0.f)
+        {
+            velocity.x *= result.time;
+        }
+        else */if (result.hit.normal.y != 0.f)
+        {
+            velocity.y *= result.time;
+        }
+
+        player.onCollision(result.hit.normal);
+
         result = levelManager.getCurrent()->sweepIntersection(player, velocity * deltaTime);
     }
 
-    player.move(velocity * deltaTime);
-
-    if (result.hit.hit)
-    {
-        player.onCollision(result.hit.normal);
-    }
+    player.move(velocity * deltaTime + result.hit.normal);
 
     for (int keyId : levelManager.getCurrent()->getKeyIntersections(player))
     {
