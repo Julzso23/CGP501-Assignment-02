@@ -11,7 +11,7 @@ Level::Level(std::string fileName, SDL_Renderer* renderer) :
 	std::ifstream file;
 	file.open("resources/levels/" + fileName + ".level");
 
-    int keyId = 0;
+    int keyId;
 
     while (file.good())
     {
@@ -62,6 +62,11 @@ Level::Level(std::string fileName, SDL_Renderer* renderer) :
                     size.y = std::stof(property[1]);
                     break;
                 }
+                case 'i':
+                {
+                    keyId = std::stoi(property[1]);
+                    break;
+                }
             }
         }
 
@@ -80,8 +85,6 @@ Level::Level(std::string fileName, SDL_Renderer* renderer) :
             key->setPosition(position * tileSize);
             // Move the key to the array
             keys.insert(keys.end(), std::move(key));
-
-            keyId++;
         }
         else if (type == "PlayerStart")
         {
