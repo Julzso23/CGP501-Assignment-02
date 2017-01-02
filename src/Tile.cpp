@@ -11,6 +11,7 @@ void Tile::draw(Vector2f cameraPosition)
     float tileSize = bitmap.getSize().x;
     Vector2f position;
 
+    // Tile the texture across the width and height of the tile object
     for (position.x = getPosition().x;
          position.x < getPosition().x + floor(getSize().x / tileSize) * tileSize;
          position.x += tileSize)

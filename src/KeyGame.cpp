@@ -15,14 +15,17 @@ void KeyGame::update(float deltaTime)
 
     Vector2f velocity = player.getVelocity();
 
+    // Calculate the first collision sweep
     Sweep result = levelManager.getCurrent()->sweepIntersection(player, velocity * deltaTime);
 
+    // If the player is inside a tile, move them out of it
     if (result.time == 0.f)
     {
         player.move(result.hit.delta);
         player.onCollision(result.hit.normal);
     }
 
+    // Keep doing sweeps until there isn't a collision
     while (result.time != 1.f)
     {
         float dotProduct = (velocity.x * result.hit.normal.y + velocity.y * result.hit.normal.x) * (1.f - result.time);
@@ -37,19 +40,24 @@ void KeyGame::update(float deltaTime)
         {
             velocity.y *= result.time;
         }
-
+        
+        // Trigger the player's collision event
         player.onCollision(result.hit.normal);
 
+        // Do another sweep
         result = levelManager.getCurrent()->sweepIntersection(player, velocity * deltaTime);
     }
 
-    player.move(velocity * deltaTime + result.hit.normal);
+    // Actually move the player in the world
+    player.move(velocity * deltaTime);
 
+    // For each key the player may be colliding with, add it to the player's inventory
     for (int keyId : levelManager.getCurrent()->getKeyIntersections(player))
     {
         player.addKey(keyId);
     }
 
+    // Centre the camera on the player
 	int renderW, renderH;
 	SDL_RenderGetLogicalSize(renderer, &renderW, &renderH);
 	Vector2f newCameraPosition(player.getPosition().x - renderW / 2.f, player.getPosition().y - renderH / 2.f);
@@ -59,6 +67,7 @@ void KeyGame::update(float deltaTime)
 void KeyGame::draw()
 {
     levelManager.getCurrent()->draw(cameraPosition);
+
 	player.draw(cameraPosition);
 }
 

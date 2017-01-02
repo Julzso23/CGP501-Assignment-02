@@ -115,6 +115,8 @@ Sweep Level::sweepIntersection(AABB& object, Vector2f delta)
     for (std::shared_ptr<Tile>& tile : tiles)
     {
         Sweep sweep = tile->sweepIntersection(object, delta);
+
+        // If the collision was closer than the last nearest, replace it as the nearest
         if (sweep.time < nearest.time)
         {
             nearest = sweep;
@@ -128,6 +130,7 @@ std::vector<int> Level::getKeyIntersections(AABB& object)
 {
     std::vector<int> results;
 
+    // If the object is colliding with a key, add it to the array to be returned
     for (std::shared_ptr<Key>& key : keys)
     {
         if (key->testIntersection(object).hit)

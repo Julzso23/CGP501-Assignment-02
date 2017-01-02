@@ -149,11 +149,13 @@ int Game::run()
 		}
 
 		Uint64 currentTime = SDL_GetPerformanceCounter();
+        // Calculate the change in time since the last frame
 		float deltaTime = (currentTime - lastTime) / (float)SDL_GetPerformanceFrequency();
 		lastTime = currentTime;
 
 		update(deltaTime);
 
+        // Clear the screen with a white background
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		SDL_RenderClear(renderer);
 		draw();

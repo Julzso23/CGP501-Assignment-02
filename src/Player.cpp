@@ -5,6 +5,7 @@ Player::Player(SDL_Renderer* renderer, std::string path, bool hasTransparency) :
 	gravity(0.f),
 	grounded(false)
 {
+    // Set the collision box size to the texture size
 	setSize(Vector2f((float)surface->w, (float)surface->h));
 }
 
@@ -28,11 +29,13 @@ void Player::setMoveDirection(float value, float deltaTime)
 
 void Player::onCollision(Vector2f normal)
 {
+    // If the player is touching the ground
     if (normal == Vector2f(0.f, -1.f))
     {
         grounded = true;
         velocity.y = 0.f;
     }
+    // If the player is touching the roof
     else if (normal == Vector2f(0.f, 1.f))
     {
         velocity.y = 0.f;
@@ -46,6 +49,7 @@ Vector2f Player::getVelocity()
 
 void Player::jump()
 {
+    // The player can only jump if they're on the ground
 	if (grounded)
 	{
         velocity.y = -500.f;

@@ -5,9 +5,13 @@
 
 namespace Utility
 {
+    // Split a string into an array of strings by a delimiter
 	std::vector<std::string> split(std::string input, char delimiter);
+
+    // Trim the leading and ending whitespace from a string
 	std::string trim(std::string input);
 
+    // Clamp a value between two other values
 	template <typename T>
 	T clamp(T value, T minimum, T maximum)
 	{
@@ -24,6 +28,7 @@ namespace Utility
 		return value;
 	}
 
+    // Return the sign (+/-) of a value
 	template <typename T>
 	T sign(T value)
 	{
@@ -35,5 +40,6 @@ namespace Utility
 		return 1;
 	}
 
+    // Return a linear interpolation between two values at time t (0-1)
 	Vector2f lerp(const Vector2f& start, const Vector2f& end, float percent);
 }
