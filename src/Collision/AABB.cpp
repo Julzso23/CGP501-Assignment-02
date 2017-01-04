@@ -32,6 +32,8 @@ Hit AABB::testIntersection(Vector2f point)
 	Vector2f difference = point - getCentre();
 	Vector2f collisionPoint = getHalf() - Vector2f(abs(difference.x), abs(difference.y));
 
+	result.object = this;
+
 	if (collisionPoint.x <= 0.f || collisionPoint.y <= 0.f)
 	{
 		result.hit = false;
@@ -87,6 +89,8 @@ Hit AABB::testIntersection(Segment segment, Vector2f padding)
 	farTimes.x = (getCentre().x + sign.x * (getHalf().x + padding.x) - segment.position.x) * scale.x;
 	farTimes.y = (getCentre().y + sign.y * (getHalf().y + padding.y) - segment.position.y) * scale.y;
 
+	result.object = this;
+
 	if (nearTimes.x > farTimes.y || nearTimes.y > farTimes.x)
 	{
 		result.hit = false;
@@ -130,6 +134,8 @@ Hit AABB::testIntersection(AABB& other)
 
 	Vector2f difference = other.getCentre() - getCentre();
 	Vector2f collisionPoint = (other.getHalf() + getHalf()) - Vector2f(abs(difference.x), abs(difference.y));
+
+	result.object = this;
 
 	if (collisionPoint.x <= 0.f || collisionPoint.y <= 0.f)
 	{

@@ -2,6 +2,8 @@
 
 #include "Vector2.hpp"
 
+class AABB;
+
 struct Hit
 {
 	bool hit;
@@ -9,4 +11,5 @@ struct Hit
 	Vector2f delta;
 	Vector2f normal;
 	float time;
+	AABB* object;
 };

@@ -61,6 +61,11 @@ void KeyGame::update(float deltaTime)
 		// Trigger the player's collision event
 		player.onCollision(result.hit.normal);
 
+		if (player.hasKey(((Door*)result.hit.object)->getId()))
+		{
+			levelManager.nextLevel();
+		}
+
 		// Do another sweep
 		result = levelManager.getCurrent()->sweepDoorIntersection(player, velocity * deltaTime);
 	}

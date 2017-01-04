@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Transformable.hpp"
-#include "Collision\Hit.hpp"
 #include "Collision\Segment.hpp"
 #include "Collision\Sweep.hpp"
 
