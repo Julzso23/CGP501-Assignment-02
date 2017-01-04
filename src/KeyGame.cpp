@@ -63,7 +63,9 @@ void KeyGame::update(float deltaTime)
 
 		if (player.hasKey(((Door*)result.hit.object)->getId()))
 		{
+			player.removeKey(((Door*)result.hit.object)->getId());
 			levelManager.nextLevel();
+			player.setPosition(levelManager.getCurrent()->getPlayerStart());
 		}
 
 		// Do another sweep

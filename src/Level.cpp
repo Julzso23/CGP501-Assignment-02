@@ -7,8 +7,18 @@
 const float Level::tileSize = 64.f;
 
 Level::Level(std::string fileName, SDL_Renderer* renderer) :
+	fileName(fileName),
 	renderer(renderer)
 {
+	load();
+}
+
+void Level::load()
+{
+	tiles.clear();
+	keys.clear();
+	doors.clear();
+
 	std::ifstream file;
 	file.open("resources/levels/" + fileName + ".level");
 

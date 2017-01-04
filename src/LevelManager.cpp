@@ -7,7 +7,7 @@ LevelManager::LevelManager(std::vector<std::string> levelNames, SDL_Renderer* re
 	shuffle();
 }
 
-void LevelManager::loadLevels(std::vector<std::string> levelNames, SDL_Renderer * renderer)
+void LevelManager::loadLevels(std::vector<std::string> levelNames, SDL_Renderer* renderer)
 {
 	for (std::string& name : levelNames)
 	{
@@ -22,7 +22,10 @@ void LevelManager::shuffle()
 
 void LevelManager::nextLevel()
 {
+	std::shared_ptr<Level> level = levels.front();
+	level->load();
 	levels.pop_front();
+	levels.push_back(level);
 }
 
 std::shared_ptr<Level> LevelManager::getCurrent()
