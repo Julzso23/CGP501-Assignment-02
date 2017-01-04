@@ -2,6 +2,7 @@
 #include "Utility.hpp"
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 const float Level::tileSize = 64.f;
 
@@ -134,13 +135,19 @@ std::vector<int> Level::getKeyIntersections(AABB& object)
     std::vector<int> results;
 
     // If the object is colliding with a key, add it to the array to be returned
-    for (std::shared_ptr<Key>& key : keys)
-    {
-        if (key->testIntersection(object).hit)
-        {
-            results.insert(results.end(), key->getId());
-        }
-    }
+	auto iterator = keys.begin();
+	while (iterator != keys.end())
+	{
+		if (iterator->get()->testIntersection(object).hit)
+		{
+			results.insert(results.end(), iterator->get()->getId());
+			iterator = keys.erase(iterator);
+		}
+		else
+		{
+			++iterator;
+		}
+	}
 
     return results;
 }
