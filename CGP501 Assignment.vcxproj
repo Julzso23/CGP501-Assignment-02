@@ -130,6 +130,7 @@
     <ClInclude Include="include\Collision\Hit.hpp" />
     <ClInclude Include="include\Collision\Segment.hpp" />
     <ClInclude Include="include\Collision\Sweep.hpp" />
+    <ClInclude Include="include\Entities\Door.hpp" />
     <ClInclude Include="include\Entities\Key.hpp" />
     <ClInclude Include="include\Game.hpp" />
     <ClInclude Include="include\InputManager.hpp" />
@@ -144,11 +145,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-    <None Include="config.terribleFormat" />
+    <None Include="config.ini" />
     <None Include="resources\levels\level1.level" />
+    <None Include="resources\levels\level2.level" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Collision\AABB.cpp" />
+    <ClCompile Include="src\Entities\Door.cpp" />
     <ClCompile Include="src\Entities\Key.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\Level.cpp" />

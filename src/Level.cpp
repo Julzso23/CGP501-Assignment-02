@@ -87,6 +87,14 @@ Level::Level(std::string fileName, SDL_Renderer* renderer) :
             // Move the key to the array
             keys.insert(keys.end(), std::move(key));
         }
+		else if (type == "Door")
+		{
+			// Create a door at the position gathered above
+			std::unique_ptr<Door> door = std::make_unique<Door>(keyId, renderer);
+			door->setPosition(position * tileSize);
+			// Move the door to the array
+			doors.insert(doors.end(), std::move(door));
+		}
         else if (type == "PlayerStart")
         {
             playerStart = position * tileSize;
@@ -107,6 +115,11 @@ void Level::draw(Vector2f cameraPosition)
     {
         key->draw(cameraPosition);
     }
+
+	for (std::shared_ptr<Door>& door : doors)
+	{
+		door->draw(cameraPosition);
+	}
 }
 
 Sweep Level::sweepIntersection(AABB& object, Vector2f delta)
@@ -150,6 +163,27 @@ std::vector<int> Level::getKeyIntersections(AABB& object)
 	}
 
     return results;
+}
+
+Sweep Level::sweepDoorIntersection(AABB& object, Vector2f delta)
+{
+	Sweep result;
+	result.hit.hit = false;
+	result.time = 1.f;
+	result.position = object.getPosition() + delta;
+
+	for (std::shared_ptr<Door>& door : doors)
+	{
+		Sweep sweep = door->sweepIntersection(object, delta);
+
+		// If the collision was closer than the last nearest, replace it as the nearest
+		if (sweep.time < result.time)
+		{
+			result = sweep;
+		}
+	}
+
+	return result;
 }
 
 Vector2f Level::getPlayerStart()

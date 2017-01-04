@@ -28,15 +28,11 @@ void KeyGame::update(float deltaTime)
     // Keep doing sweeps until there isn't a collision
     while (result.time != 1.f)
     {
+		// Change the player's velocity to slide along the tile
         float dotProduct = (velocity.x * result.hit.normal.y + velocity.y * result.hit.normal.x) * (1.f - result.time);
         velocity.x = result.hit.normal.y * dotProduct;
-        //velocity.y = result.hit.normal.x * dotProduct;
 
-        /*if (result.hit.normal.x != 0.f)
-        {
-            velocity.x *= result.time;
-        }
-        else */if (result.hit.normal.y != 0.f)
+        if (result.hit.normal.y != 0.f)
         {
             velocity.y *= result.time;
         }
@@ -47,6 +43,27 @@ void KeyGame::update(float deltaTime)
         // Do another sweep
         result = levelManager.getCurrent()->sweepIntersection(player, velocity * deltaTime);
     }
+
+	result = levelManager.getCurrent()->sweepDoorIntersection(player, velocity * deltaTime);
+
+	// Keep doing sweeps until there isn't a collision
+	while (result.time != 1.f)
+	{
+		// Change the player's velocity to slide along the door
+		float dotProduct = (velocity.x * result.hit.normal.y + velocity.y * result.hit.normal.x) * (1.f - result.time);
+		velocity.x = result.hit.normal.y * dotProduct;
+
+		if (result.hit.normal.y != 0.f)
+		{
+			velocity.y *= result.time;
+		}
+
+		// Trigger the player's collision event
+		player.onCollision(result.hit.normal);
+
+		// Do another sweep
+		result = levelManager.getCurrent()->sweepDoorIntersection(player, velocity * deltaTime);
+	}
 
     // Actually move the player in the world
     player.move(velocity * deltaTime);
@@ -73,7 +90,7 @@ void KeyGame::draw()
 
 KeyGame::KeyGame() :
 	player(renderer, "Player.bmp", true),
-	levelManager({"level1"}, renderer)
+	levelManager({"level1", "level2"}, renderer)
 {
 	player.setPosition(levelManager.getCurrent()->getPlayerStart());
 	player.setGravity(1000.f);
