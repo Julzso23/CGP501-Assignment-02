@@ -5,44 +5,16 @@
 
 void Game::loadConfig(std::string fileName)
 {
-	std::ifstream file;
-	file.open(fileName);
+	char title[128];
+	GetPrivateProfileString("window", "title", "Unnamed", title, 128, "./config.ini");
+	config.title = title;
 
-	// Check each line of the config file for config values
-	while (file.good())
-	{
-		std::string line;
-		std::getline(file, line);
+	config.fullscreen = GetPrivateProfileInt("window", "fullscreen", 0, "./config.ini") == 1;
 
-		std::vector<std::string> elements = Utility::split(line, ':');
+	config.size = Vector2i(GetPrivateProfileInt("window", "width", 1280, "./config.ini"),
+						   GetPrivateProfileInt("window", "height", 720, "./config.ini"));
 
-		// Trim out any outer whitespace
-		elements[0] = Utility::trim(elements[0]);
-		elements[1] = Utility::trim(elements[1]);
-
-		if (elements[0] == "title")
-		{
-			config.title = elements[1];
-		}
-		else if (elements[0] == "fullscreen")
-		{
-			config.fullscreen = elements[1] == "true"; // String to bool
-		}
-		else if (elements[0] == "width")
-		{
-			config.size.x = std::stoi(elements[1]); // String to int
-		}
-		else if (elements[0] == "height")
-		{
-			config.size.y = std::stoi(elements[1]);
-		}
-		else if (elements[0] == "monitor")
-		{
-			config.monitor = std::stoi(elements[1]);
-		}
-	}
-
-	file.close();
+	config.monitor = GetPrivateProfileInt("window", "monitor", 0, "./config.ini");
 }
 
 void Game::setRenderScale()
@@ -82,11 +54,6 @@ Game::Game() :
 	running(true),
 	lastTime(0)
 {
-	config.title = "UnNamed";
-	config.fullscreen = false;
-	config.size = Vector2i(1280, 720);
-	config.monitor = 0;
-
 	loadConfig("config.terribleFormat");
 
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER);
