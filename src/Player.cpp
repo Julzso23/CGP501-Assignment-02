@@ -27,6 +27,71 @@ void Player::setMoveDirection(float value, float deltaTime)
 	grounded = false;
 }
 
+void Player::collisionSlide(LevelManager& levelManager, float deltaTime)
+{
+	Vector2f velocity = getVelocity();
+
+	// Calculate the first collision sweep
+	Sweep result = levelManager.getCurrent()->sweepIntersection(*this, velocity * deltaTime);
+
+	// If the player is inside a tile, move them out of it
+	if (result.time == 0.f)
+	{
+		move(result.hit.delta);
+		onCollision(result.hit.normal);
+	}
+
+	// Keep doing sweeps until there isn't a collision
+	while (result.time != 1.f)
+	{
+		// Change the player's velocity to slide along the tile
+		float dotProduct = (velocity.x * result.hit.normal.y + velocity.y * result.hit.normal.x) * (1.f - result.time);
+		velocity.x = result.hit.normal.y * dotProduct;
+
+		if (result.hit.normal.y != 0.f)
+		{
+			velocity.y *= result.time;
+		}
+
+		// Trigger the player's collision event
+		onCollision(result.hit.normal);
+
+		// Do another sweep
+		result = levelManager.getCurrent()->sweepIntersection(*this, velocity * deltaTime);
+	}
+
+	result = levelManager.getCurrent()->sweepDoorIntersection(*this, velocity * deltaTime);
+
+	// Keep doing sweeps until there isn't a collision
+	while (result.time != 1.f)
+	{
+		// Change the player's velocity to slide along the door
+		float dotProduct = (velocity.x * result.hit.normal.y + velocity.y * result.hit.normal.x) * (1.f - result.time);
+		velocity.x = result.hit.normal.y * dotProduct;
+
+		if (result.hit.normal.y != 0.f)
+		{
+			velocity.y *= result.time;
+		}
+
+		// Trigger the player's collision event
+		onCollision(result.hit.normal);
+
+		if (hasKey(((Door*)result.hit.object)->getId()))
+		{
+			removeKey(((Door*)result.hit.object)->getId());
+			levelManager.nextLevel();
+			setPosition(levelManager.getCurrent()->getPlayerStart());
+		}
+
+		// Do another sweep
+		result = levelManager.getCurrent()->sweepDoorIntersection(*this, velocity * deltaTime);
+	}
+
+	// Actually move the player in the world
+	move(velocity * deltaTime);
+}
+
 void Player::onCollision(Vector2f normal)
 {
     // If the player is touching the ground

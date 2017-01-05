@@ -13,67 +13,7 @@ void KeyGame::update(float deltaTime)
 	float value = inputManager.getAxis();
 	player.setMoveDirection(value * 400.f, deltaTime);
 
-    Vector2f velocity = player.getVelocity();
-
-    // Calculate the first collision sweep
-    Sweep result = levelManager.getCurrent()->sweepIntersection(player, velocity * deltaTime);
-
-    // If the player is inside a tile, move them out of it
-    if (result.time == 0.f)
-    {
-        player.move(result.hit.delta);
-        player.onCollision(result.hit.normal);
-    }
-
-    // Keep doing sweeps until there isn't a collision
-    while (result.time != 1.f)
-    {
-		// Change the player's velocity to slide along the tile
-        float dotProduct = (velocity.x * result.hit.normal.y + velocity.y * result.hit.normal.x) * (1.f - result.time);
-        velocity.x = result.hit.normal.y * dotProduct;
-
-        if (result.hit.normal.y != 0.f)
-        {
-            velocity.y *= result.time;
-        }
-        
-        // Trigger the player's collision event
-        player.onCollision(result.hit.normal);
-
-        // Do another sweep
-        result = levelManager.getCurrent()->sweepIntersection(player, velocity * deltaTime);
-    }
-
-	result = levelManager.getCurrent()->sweepDoorIntersection(player, velocity * deltaTime);
-
-	// Keep doing sweeps until there isn't a collision
-	while (result.time != 1.f)
-	{
-		// Change the player's velocity to slide along the door
-		float dotProduct = (velocity.x * result.hit.normal.y + velocity.y * result.hit.normal.x) * (1.f - result.time);
-		velocity.x = result.hit.normal.y * dotProduct;
-
-		if (result.hit.normal.y != 0.f)
-		{
-			velocity.y *= result.time;
-		}
-
-		// Trigger the player's collision event
-		player.onCollision(result.hit.normal);
-
-		if (player.hasKey(((Door*)result.hit.object)->getId()))
-		{
-			player.removeKey(((Door*)result.hit.object)->getId());
-			levelManager.nextLevel();
-			player.setPosition(levelManager.getCurrent()->getPlayerStart());
-		}
-
-		// Do another sweep
-		result = levelManager.getCurrent()->sweepDoorIntersection(player, velocity * deltaTime);
-	}
-
-    // Actually move the player in the world
-    player.move(velocity * deltaTime);
+	player.collisionSlide(levelManager, deltaTime);
 
     // For each key the player may be colliding with, add it to the player's inventory
     for (int keyId : levelManager.getCurrent()->getKeyIntersections(player))

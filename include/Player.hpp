@@ -2,9 +2,10 @@
 
 #include "Collision/AABB.hpp"
 #include "Bitmap.hpp"
+#include "LevelManager.hpp"
 #include <vector>
 
-class Player : public AABB, public Bitmap
+class Player : public virtual AABB, public virtual Bitmap
 {
 private:
 	float gravity;
@@ -20,7 +21,9 @@ public:
 
 	void setMoveDirection(float value, float deltaTime);
 
-    void onCollision(Vector2f normal);
+	void collisionSlide(LevelManager& levelManager, float deltaTime);
+
+    virtual void onCollision(Vector2f normal);
 
     Vector2f getVelocity();
 
