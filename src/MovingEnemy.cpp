@@ -1,4 +1,5 @@
 #include "MovingEnemy.hpp"
+#include "Utility.hpp"
 
 MovingEnemy::MovingEnemy(SDL_Renderer* renderer) :
 	direction(1),
@@ -17,5 +18,10 @@ void MovingEnemy::setMoveDirection(float value, float deltaTime)
 
 void MovingEnemy::onCollision(Vector2f normal)
 {
-	direction = (int)floor(normal.x);
+	if (normal.x != 0.f)
+	{
+		direction = (int)Utility::sign(normal.x);
+	}
+
+	Player::onCollision(normal);
 }
