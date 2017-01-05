@@ -19,7 +19,7 @@ public:
 	void setGravity(float gravity);
 	float getGravity();
 
-	void setMoveDirection(float value, float deltaTime);
+	virtual void setMoveDirection(float value, float deltaTime);
 
 	void collisionSlide(LevelManager& levelManager, float deltaTime);
 

@@ -7,6 +7,13 @@ MovingEnemy::MovingEnemy(SDL_Renderer* renderer) :
 {
 }
 
+void MovingEnemy::setMoveDirection(float value, float deltaTime)
+{
+	setAngle(getAngle() + 45 * deltaTime);
+
+	Player::setMoveDirection(value, deltaTime);
+}
+
 void MovingEnemy::onCollision(Vector2f normal)
 {
 	direction = normal.x;
