@@ -8,3 +8,5 @@ Tile, x: 9, y: 0, w: 1, h: 8
 Key, x: 6, y: 8, i: 0
 
 Door, x: 9, y: 8, i: 0
+
+Enemy, x: 3, y: 8

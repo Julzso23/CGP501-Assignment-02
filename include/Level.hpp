@@ -8,6 +8,7 @@
 #include <memory>
 
 class Enemy;
+class LevelManager;
 
 class Level : public Transformable
 {
@@ -30,6 +31,8 @@ public:
     Sweep sweepIntersection(AABB& object, Vector2f delta);
     std::vector<int> getKeyIntersections(AABB& object);
 	Sweep sweepDoorIntersection(AABB& object, Vector2f delta);
+
+	void updateEnemies(LevelManager& levelManager, float deltaTime);
 
 	Vector2f getPlayerStart();
 };

@@ -12,7 +12,7 @@ void MovingEnemy::setMoveDirection(float value, float deltaTime)
 {
 	setAngle(getAngle() + 45 * deltaTime);
 
-	Player::setMoveDirection(value, deltaTime);
+	Player::setMoveDirection(value * direction, deltaTime);
 }
 
 void MovingEnemy::onCollision(Vector2f normal)

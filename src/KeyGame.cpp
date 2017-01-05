@@ -21,6 +21,8 @@ void KeyGame::update(float deltaTime)
         player.addKey(keyId);
     }
 
+	levelManager.getCurrent()->updateEnemies(levelManager, deltaTime);
+
     // Centre the camera on the player
 	int renderW, renderH;
 	SDL_RenderGetLogicalSize(renderer, &renderW, &renderH);

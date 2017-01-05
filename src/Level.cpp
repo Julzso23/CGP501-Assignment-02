@@ -1,6 +1,7 @@
 #include "Level.hpp"
 #include "Utility.hpp"
 #include "MovingEnemy.hpp"
+#include "LevelManager.hpp"
 #include <fstream>
 #include <sstream>
 #include <algorithm>
@@ -19,6 +20,7 @@ void Level::load()
 	tiles.clear();
 	keys.clear();
 	doors.clear();
+	enemies.clear();
 
 	std::ifstream file;
 	file.open("resources/levels/" + fileName + ".level");
@@ -120,6 +122,7 @@ void Level::load()
 		{
 			std::unique_ptr<MovingEnemy> enemy = std::make_unique<MovingEnemy>(renderer);
 			enemy->setPosition(position * tileSize);
+			enemy->setGravity(1000.f);
 			enemies.insert(enemies.end(), std::move(enemy));
 		}
     }
@@ -212,6 +215,19 @@ Sweep Level::sweepDoorIntersection(AABB& object, Vector2f delta)
 	}
 
 	return result;
+}
+
+void Level::updateEnemies(LevelManager& levelManager, float deltaTime)
+{
+	for (std::shared_ptr<Enemy>& enemy : enemies)
+	{
+		std::shared_ptr<MovingEnemy> movingEnemy = std::dynamic_pointer_cast<MovingEnemy>(enemy);
+		if (movingEnemy)
+		{
+			movingEnemy->setMoveDirection(300.f, deltaTime);
+			movingEnemy->collisionSlide(levelManager, deltaTime);
+		}
+	}
 }
 
 Vector2f Level::getPlayerStart()
