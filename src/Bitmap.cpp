@@ -2,7 +2,8 @@
 #include <Windows.h>
 
 Bitmap::Bitmap(SDL_Renderer* renderer, std::string path, bool hasTransparency) :
-	renderer(renderer)
+	renderer(renderer),
+	angle(0.0)
 {
 	surface = SDL_LoadBMP(("resources/textures/" + path).c_str());
 	if (!surface)
@@ -43,11 +44,22 @@ void Bitmap::draw(Vector2f cameraPosition)
 	if (texture)
 	{
 		SDL_Rect rect = {(int)floor(getPosition().x - cameraPosition.x), (int)floor(getPosition().y - cameraPosition.y), surface->w, surface->h};
-		SDL_RenderCopy(renderer, texture, NULL, &rect);
+		SDL_Point centre = {surface->w / 2, surface->h / 2};
+		SDL_RenderCopyEx(renderer, texture, NULL, &rect, angle, &centre, SDL_FLIP_NONE);
 	}
 }
 
 Vector2f Bitmap::getSize()
 {
     return Vector2f(surface->w, surface->h);
+}
+
+void Bitmap::setAngle(double angle)
+{
+	this->angle = angle;
+}
+
+double Bitmap::getAngle()
+{
+	return angle;
 }
