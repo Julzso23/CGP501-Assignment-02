@@ -1,5 +1,6 @@
 #include "Level.hpp"
 #include "Utility.hpp"
+#include "MovingEnemy.hpp"
 #include <fstream>
 #include <sstream>
 #include <algorithm>
@@ -109,6 +110,18 @@ void Level::load()
         {
             playerStart = position * tileSize;
         }
+		else if (type == "Enemy")
+		{
+			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(renderer);
+			enemy->setPosition(position * tileSize);
+			enemies.insert(enemies.end(), std::move(enemy));
+		}
+		else if (type == "MovingEnemy")
+		{
+			std::unique_ptr<MovingEnemy> enemy = std::make_unique<MovingEnemy>(renderer);
+			enemy->setPosition(position * tileSize);
+			enemies.insert(enemies.end(), std::move(enemy));
+		}
     }
 
     file.close();
@@ -129,6 +142,11 @@ void Level::draw(Vector2f cameraPosition)
 	for (std::shared_ptr<Door>& door : doors)
 	{
 		door->draw(cameraPosition);
+	}
+
+	for (std::shared_ptr<Enemy>& enemy : enemies)
+	{
+		enemy->draw(cameraPosition);
 	}
 }
 

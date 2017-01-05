@@ -7,6 +7,8 @@
 #include <vector>
 #include <memory>
 
+class Enemy;
+
 class Level : public Transformable
 {
 private:
@@ -15,6 +17,7 @@ private:
 	std::vector<std::shared_ptr<Tile>> tiles;
     std::vector<std::shared_ptr<Key>> keys;
 	std::vector<std::shared_ptr<Door>> doors;
+	std::vector<std::shared_ptr<Enemy>> enemies;
 	Vector2f playerStart;
 
     static const float tileSize;
