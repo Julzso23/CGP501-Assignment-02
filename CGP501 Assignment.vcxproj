@@ -130,6 +130,7 @@
     <ClInclude Include="include\Collision\Hit.hpp" />
     <ClInclude Include="include\Collision\Segment.hpp" />
     <ClInclude Include="include\Collision\Sweep.hpp" />
+    <ClInclude Include="include\Enemy.hpp" />
     <ClInclude Include="include\Entities\Door.hpp" />
     <ClInclude Include="include\Entities\Key.hpp" />
     <ClInclude Include="include\Game.hpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="include\KeyGame.hpp" />
     <ClInclude Include="include\Level.hpp" />
     <ClInclude Include="include\LevelManager.hpp" />
+    <ClInclude Include="include\MovingEnemy.hpp" />
     <ClInclude Include="include\Player.hpp" />
     <ClInclude Include="include\Tile.hpp" />
     <ClInclude Include="include\Transformable.hpp" />
@@ -151,11 +153,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Collision\AABB.cpp" />
+    <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\Entities\Door.cpp" />
     <ClCompile Include="src\Entities\Key.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\LevelManager.cpp" />
+    <ClCompile Include="src\MovingEnemy.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Bitmap.cpp" />
     <ClCompile Include="src\Game.cpp" />

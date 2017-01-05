@@ -2,7 +2,6 @@
 
 #include "Transformable.hpp"
 #include "Tile.hpp"
-#include "Player.hpp"
 #include "Entities/Key.hpp"
 #include "Entities/Door.hpp"
 #include <vector>
