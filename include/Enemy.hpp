@@ -9,6 +9,6 @@ class Level;
 class Enemy : public virtual AABB, public virtual Bitmap
 {
 public:
-	Enemy();
+	Enemy(SDL_Renderer* renderer);
 	virtual void playerCollision(std::shared_ptr<Level> level);
 };

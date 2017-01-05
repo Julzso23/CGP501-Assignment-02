@@ -1,7 +1,7 @@
 #include "Enemy.hpp"
 #include "Level.hpp"
 
-Enemy::Enemy() :
+Enemy::Enemy(SDL_Renderer* renderer) :
 	Bitmap(renderer, "Spikes.bmp", true)
 {
 	setSize(Vector2f(surface->w, surface->h));
