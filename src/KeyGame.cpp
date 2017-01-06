@@ -23,6 +23,13 @@ void KeyGame::update(float deltaTime)
 
 	levelManager.getCurrent()->updateEnemies(levelManager, deltaTime);
 
+	if (levelManager.getCurrent()->getEnemyIntersection(player).hit)
+	{
+		levelManager.getCurrent()->load();
+		player.setPosition(levelManager.getCurrent()->getPlayerStart());
+		player.onCollision(Vector2f(0.f, -1.f));
+	}
+
     // Centre the camera on the player
 	int renderW, renderH;
 	SDL_RenderGetLogicalSize(renderer, &renderW, &renderH);

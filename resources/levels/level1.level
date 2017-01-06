@@ -10,4 +10,4 @@ Key, x: 6, y: 7, i: 0
 
 Door, x: 9, y: 8, i: 0
 
-MovingEnemy, x: 2, y: 2
+MovingEnemy, x: 5, y: 5

@@ -217,6 +217,23 @@ Sweep Level::sweepDoorIntersection(AABB& object, Vector2f delta)
 	return result;
 }
 
+Hit Level::getEnemyIntersection(AABB& object)
+{
+	Hit result;
+
+	for (std::shared_ptr<Enemy>& enemy : enemies)
+	{
+		result = enemy->testIntersection(object);
+
+		if (result.hit)
+		{
+			return result;
+		}
+	}
+
+	return result;
+}
+
 void Level::updateEnemies(LevelManager& levelManager, float deltaTime)
 {
 	for (std::shared_ptr<Enemy>& enemy : enemies)

@@ -31,6 +31,7 @@ public:
     Sweep sweepIntersection(AABB& object, Vector2f delta);
     std::vector<int> getKeyIntersections(AABB& object);
 	Sweep sweepDoorIntersection(AABB& object, Vector2f delta);
+	Hit getEnemyIntersection(AABB& object);
 
 	void updateEnemies(LevelManager& levelManager, float deltaTime);
 
