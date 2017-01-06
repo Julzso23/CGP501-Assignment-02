@@ -32,4 +32,6 @@ public:
     void addKey(int keyId);
     void removeKey(int keyId);
     bool hasKey(int keyId);
+
+	void reset();
 };

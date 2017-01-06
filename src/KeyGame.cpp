@@ -26,8 +26,8 @@ void KeyGame::update(float deltaTime)
 	if (levelManager.getCurrent()->getEnemyIntersection(player).hit)
 	{
 		levelManager.getCurrent()->load();
+		player.reset();
 		player.setPosition(levelManager.getCurrent()->getPlayerStart());
-		player.onCollision(Vector2f(0.f, -1.f));
 	}
 
     // Centre the camera on the player
@@ -49,7 +49,6 @@ KeyGame::KeyGame() :
 	levelManager({"level1", "level2"}, renderer)
 {
 	player.setPosition(levelManager.getCurrent()->getPlayerStart());
-	player.setGravity(1000.f);
 
 	inputManager.setInputs(SDL_SCANCODE_A, SDL_SCANCODE_D);
 }

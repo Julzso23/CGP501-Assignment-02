@@ -1,12 +1,12 @@
 #include "Player.hpp"
 
 Player::Player(SDL_Renderer* renderer, std::string path, bool hasTransparency) :
-	Bitmap(renderer, path, hasTransparency),
-	gravity(0.f),
-	grounded(false)
+	Bitmap(renderer, path, hasTransparency)
 {
     // Set the collision box size to the texture size
 	setSize(Vector2f((float)surface->w, (float)surface->h));
+
+	reset();
 }
 
 void Player::setGravity(float gravity)
@@ -81,6 +81,7 @@ void Player::collisionSlide(LevelManager& levelManager, float deltaTime)
 		{
 			removeKey(((Door*)result.hit.object)->getId());
 			levelManager.nextLevel();
+			reset();
 			setPosition(levelManager.getCurrent()->getPlayerStart());
 		}
 
@@ -139,4 +140,13 @@ bool Player::hasKey(int keyId)
 {
     auto iterator = std::find(keys.begin(), keys.end(), keyId);
     return iterator != keys.end();
+}
+
+void Player::reset()
+{
+	gravity = 1000.f;
+	grounded = false;
+	setPosition(Vector2f(0.f, 0.f));
+	velocity = Vector2f(0.f, 0.f);
+	keys.clear();
 }
