@@ -1,4 +1,5 @@
 #include "Player.hpp"
+#include "Utility.hpp"
 
 Player::Player(SDL_Renderer* renderer, std::string path, bool hasTransparency) :
 	Bitmap(renderer, path, hasTransparency)
@@ -23,6 +24,10 @@ void Player::setMoveDirection(float value, float deltaTime)
 {
 	velocity.x = value;
 	velocity.y += gravity * deltaTime;
+	if (velocity.y > 3000.f)
+	{
+		velocity.y = 3000.f;
+	}
 
 	grounded = false;
 }
