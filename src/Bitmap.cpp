@@ -51,7 +51,7 @@ void Bitmap::draw(Vector2f cameraPosition)
 
 Vector2f Bitmap::getSize()
 {
-    return Vector2f(surface->w, surface->h);
+    return Vector2f((float)surface->w, (float)surface->h);
 }
 
 void Bitmap::setAngle(double angle)
