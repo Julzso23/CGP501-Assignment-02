@@ -1,39 +1,151 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
-  <Class Name="Entity">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Bitmap" Collapsed="true">
+    <Position X="6.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAIAAIAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Entity.hpp</FileName>
+      <HashCode>AAAAAEAABIAAAAAAAA4AAACAAAAAAgAAAAAAAABAgAA=</HashCode>
+      <FileName>include\Bitmap.hpp</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tile">
-    <Position X="0.5" Y="2.5" Width="1.5" />
+  <Class Name="AABB" Collapsed="true">
+    <Position X="8.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Tile.hpp</FileName>
+      <HashCode>AAAAQAAAAIEAAAgAAIAAAACAAAAAAAAAAAEAAEAAAAA=</HashCode>
+      <FileName>include\Collision\AABB.hpp</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Map">
-    <Position X="2.25" Y="2.5" Width="2.25" />
+  <Class Name="Enemy" Collapsed="true">
+    <Position X="5.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgABAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Map.hpp</FileName>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>include\Enemy.hpp</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MapHandler">
-    <Position X="4.75" Y="2.5" Width="2.25" />
+  <Class Name="Door" Collapsed="true">
+    <Position X="7.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AMAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
-      <FileName>MapHandler.hpp</FileName>
+      <HashCode>AgAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>include\Entities\Door.hpp</FileName>
     </TypeIdentifier>
   </Class>
-  <Struct Name="Vector">
-    <Position X="2.25" Y="0.5" Width="1.5" />
+  <Class Name="Key" Collapsed="true">
+    <Position X="4.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
-      <FileName>Vector.hpp</FileName>
+      <HashCode>AgAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>include\Entities\Key.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game" Collapsed="true">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAgAAAAAAAAAAAAIAAgAAAAiAgAAIAAAAIAAEgAA=</HashCode>
+      <FileName>include\Game.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputManager" Collapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAIAAAEAAAEAAAEAgAAAAAAAAAEAAAAAJCAGAAA=</HashCode>
+      <FileName>include\InputManager.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyGame" Collapsed="true">
+    <Position X="2.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAIIAAAAABAAAAAhAAAAAAAEAAA=</HashCode>
+      <FileName>include\KeyGame.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Level" Collapsed="true">
+    <Position X="10.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAYAIAAAAAAKAAAgBAgAAAIEBAEAYAAAAgAA=</HashCode>
+      <FileName>include\Level.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LevelManager" Collapsed="true">
+    <Position X="15" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABQAAACAAAABAAAAAAAAAAACAEAAAAAAAAAAAIAgAA=</HashCode>
+      <FileName>include\LevelManager.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MovingEnemy" Collapsed="true">
+    <Position X="8" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAgAAAAAAAAAAAAQAAAAAAACAAAAA=</HashCode>
+      <FileName>include\MovingEnemy.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="10.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAAgEAAAIgAAAgAAAAAAAAAAAAAAIAARoASAAAAA=</HashCode>
+      <FileName>include\Player.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tile" Collapsed="true">
+    <Position X="8.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAIAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>include\Tile.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Transformable" Collapsed="true">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAACAAAAAIAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>include\Transformable.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vector2&lt;T&gt;" Collapsed="true">
+    <Position X="3.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAEAAAQAAAAAABAAAAABgAAAAAAI=</HashCode>
+      <FileName>include\Vector2.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Hit" Collapsed="true">
+    <Position X="13.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAACAAAgAAAAAAIAgAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>include\Collision\Hit.hpp</FileName>
     </TypeIdentifier>
   </Struct>
+  <Struct Name="Segment" Collapsed="true">
+    <Position X="15" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>include\Collision\Segment.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Sweep" Collapsed="true">
+    <Position X="13.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAgAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>include\Collision\Sweep.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="Vector2f" Collapsed="true">
+    <Position X="0.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>include\Vector2.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="Vector2i" Collapsed="true">
+    <Position X="1.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>include\Vector2.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="Vector2u" Collapsed="true">
+    <Position X="3.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>include\Vector2.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
