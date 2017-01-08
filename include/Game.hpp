@@ -9,31 +9,31 @@
 class Game
 {
 public:
-	struct Config
-	{
-		std::string title;
-		bool fullscreen;
-		Vector2i size;
-		int monitor;
-	};
+    struct Config
+    {
+        std::string title;
+        bool fullscreen;
+        Vector2i size;
+        int monitor;
+    };
 private:
-	bool running;
-	Uint64 lastTime;
+    bool running;
+    Uint64 lastTime;
 
-	void loadConfig(std::string fileName);
-	void setRenderScale();
+    void loadConfig(std::string fileName);
+    void setRenderScale();
 protected:
-	SDL_Window* window;
-	SDL_Renderer* renderer;
-	Config config;
+    SDL_Window* window;
+    SDL_Renderer* renderer;
+    Config config;
 
-	void setMonitor(int id);
+    void setMonitor(int id);
 
-	virtual void update(float deltaTime);
-	virtual void draw();
+    virtual void update(float deltaTime);
+    virtual void draw();
 public:
-	Game();
-	virtual ~Game();
+    Game();
+    virtual ~Game();
 
-	int run();
+    int run();
 };

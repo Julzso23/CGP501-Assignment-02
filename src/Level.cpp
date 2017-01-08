@@ -9,21 +9,21 @@
 const float Level::tileSize = 64.f;
 
 Level::Level(std::string fileName, SDL_Renderer* renderer) :
-	fileName(fileName),
-	renderer(renderer)
+    fileName(fileName),
+    renderer(renderer)
 {
-	load();
+    load();
 }
 
 void Level::load()
 {
-	tiles.clear();
-	keys.clear();
-	doors.clear();
-	enemies.clear();
+    tiles.clear();
+    keys.clear();
+    doors.clear();
+    enemies.clear();
 
-	std::ifstream file;
-	file.open("resources/levels/" + fileName + ".level");
+    std::ifstream file;
+    file.open("resources/levels/" + fileName + ".level");
 
     int keyId;
 
@@ -100,31 +100,31 @@ void Level::load()
             // Move the key to the array
             keys.insert(keys.end(), std::move(key));
         }
-		else if (type == "Door")
-		{
-			// Create a door at the position gathered above
-			std::unique_ptr<Door> door = std::make_unique<Door>(keyId, renderer);
-			door->setPosition(position * tileSize);
-			// Move the door to the array
-			doors.insert(doors.end(), std::move(door));
-		}
+        else if (type == "Door")
+        {
+            // Create a door at the position gathered above
+            std::unique_ptr<Door> door = std::make_unique<Door>(keyId, renderer);
+            door->setPosition(position * tileSize);
+            // Move the door to the array
+            doors.insert(doors.end(), std::move(door));
+        }
         else if (type == "PlayerStart")
         {
             playerStart = position * tileSize;
         }
-		else if (type == "Enemy")
-		{
-			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(renderer);
-			enemy->setPosition(position * tileSize);
-			enemies.insert(enemies.end(), std::move(enemy));
-		}
-		else if (type == "MovingEnemy")
-		{
-			std::unique_ptr<MovingEnemy> enemy = std::make_unique<MovingEnemy>(renderer);
-			enemy->setPosition(position * tileSize);
-			enemy->setGravity(1000.f);
-			enemies.insert(enemies.end(), std::move(enemy));
-		}
+        else if (type == "Enemy")
+        {
+            std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(renderer);
+            enemy->setPosition(position * tileSize);
+            enemies.insert(enemies.end(), std::move(enemy));
+        }
+        else if (type == "MovingEnemy")
+        {
+            std::unique_ptr<MovingEnemy> enemy = std::make_unique<MovingEnemy>(renderer);
+            enemy->setPosition(position * tileSize);
+            enemy->setGravity(1000.f);
+            enemies.insert(enemies.end(), std::move(enemy));
+        }
     }
 
     file.close();
@@ -132,25 +132,25 @@ void Level::load()
 
 void Level::draw(Vector2f cameraPosition)
 {
-	for (std::shared_ptr<Tile>& tile : tiles)
-	{
-		tile->draw(cameraPosition);
-	}
+    for (std::shared_ptr<Tile>& tile : tiles)
+    {
+        tile->draw(cameraPosition);
+    }
 
     for (std::shared_ptr<Key>& key : keys)
     {
         key->draw(cameraPosition);
     }
 
-	for (std::shared_ptr<Door>& door : doors)
-	{
-		door->draw(cameraPosition);
-	}
+    for (std::shared_ptr<Door>& door : doors)
+    {
+        door->draw(cameraPosition);
+    }
 
-	for (std::shared_ptr<Enemy>& enemy : enemies)
-	{
-		enemy->draw(cameraPosition);
-	}
+    for (std::shared_ptr<Enemy>& enemy : enemies)
+    {
+        enemy->draw(cameraPosition);
+    }
 }
 
 Sweep Level::sweepIntersection(AABB& object, Vector2f delta)
@@ -179,75 +179,75 @@ std::vector<int> Level::getKeyIntersections(AABB& object)
     std::vector<int> results;
 
     // If the object is colliding with a key, add it to the array to be returned
-	auto iterator = keys.begin();
-	while (iterator != keys.end())
-	{
-		if (iterator->get()->testIntersection(object).hit)
-		{
-			results.insert(results.end(), iterator->get()->getId());
-			iterator = keys.erase(iterator);
-		}
-		else
-		{
-			++iterator;
-		}
-	}
+    auto iterator = keys.begin();
+    while (iterator != keys.end())
+    {
+        if (iterator->get()->testIntersection(object).hit)
+        {
+            results.insert(results.end(), iterator->get()->getId());
+            iterator = keys.erase(iterator);
+        }
+        else
+        {
+            ++iterator;
+        }
+    }
 
     return results;
 }
 
 Sweep Level::sweepDoorIntersection(AABB& object, Vector2f delta)
 {
-	Sweep result;
-	result.hit.hit = false;
-	result.time = 1.f;
-	result.position = object.getPosition() + delta;
+    Sweep result;
+    result.hit.hit = false;
+    result.time = 1.f;
+    result.position = object.getPosition() + delta;
 
-	for (std::shared_ptr<Door>& door : doors)
-	{
-		Sweep sweep = door->sweepIntersection(object, delta);
+    for (std::shared_ptr<Door>& door : doors)
+    {
+        Sweep sweep = door->sweepIntersection(object, delta);
 
-		// If the collision was closer than the last nearest, replace it as the nearest
-		if (sweep.time < result.time)
-		{
-			result = sweep;
-		}
-	}
+        // If the collision was closer than the last nearest, replace it as the nearest
+        if (sweep.time < result.time)
+        {
+            result = sweep;
+        }
+    }
 
-	return result;
+    return result;
 }
 
 Hit Level::getEnemyIntersection(AABB& object)
 {
-	Hit result;
+    Hit result;
 
-	for (std::shared_ptr<Enemy>& enemy : enemies)
-	{
-		result = enemy->testIntersection(object);
+    for (std::shared_ptr<Enemy>& enemy : enemies)
+    {
+        result = enemy->testIntersection(object);
 
-		if (result.hit)
-		{
-			return result;
-		}
-	}
+        if (result.hit)
+        {
+            return result;
+        }
+    }
 
-	return result;
+    return result;
 }
 
 void Level::updateEnemies(LevelManager& levelManager, float deltaTime)
 {
-	for (std::shared_ptr<Enemy>& enemy : enemies)
-	{
-		std::shared_ptr<MovingEnemy> movingEnemy = std::dynamic_pointer_cast<MovingEnemy>(enemy);
-		if (movingEnemy)
-		{
-			movingEnemy->setMoveDirection(300.f, deltaTime);
-			movingEnemy->collisionSlide(levelManager, deltaTime);
-		}
-	}
+    for (std::shared_ptr<Enemy>& enemy : enemies)
+    {
+        std::shared_ptr<MovingEnemy> movingEnemy = std::dynamic_pointer_cast<MovingEnemy>(enemy);
+        if (movingEnemy)
+        {
+            movingEnemy->setMoveDirection(300.f, deltaTime);
+            movingEnemy->collisionSlide(levelManager, deltaTime);
+        }
+    }
 }
 
 Vector2f Level::getPlayerStart()
 {
-	return playerStart;
+    return playerStart;
 }

@@ -6,10 +6,10 @@
 class MovingEnemy : public Enemy, public Player
 {
 private:
-	int direction;
+    int direction;
 public:
-	MovingEnemy(SDL_Renderer* renderer);
+    MovingEnemy(SDL_Renderer* renderer);
 
-	void setMoveDirection(float value, float deltaTime);
-	void onCollision(Vector2f normal);
+    void setMoveDirection(float value, float deltaTime);
+    void onCollision(Vector2f normal);
 };

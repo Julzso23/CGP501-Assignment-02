@@ -4,7 +4,7 @@
 
 struct Sweep
 {
-	Hit hit;
-	Vector2f position;
-	float time;
+    Hit hit;
+    Vector2f position;
+    float time;
 };

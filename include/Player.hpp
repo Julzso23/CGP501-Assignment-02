@@ -8,30 +8,30 @@
 class Player : public virtual AABB, public virtual Bitmap
 {
 private:
-	float gravity;
-	bool grounded;
+    float gravity;
+    bool grounded;
     Vector2f velocity;
 
     std::vector<int> keys;
 public:
-	Player(SDL_Renderer* renderer, std::string path, bool hasTransparency = false);
+    Player(SDL_Renderer* renderer, std::string path, bool hasTransparency = false);
 
-	void setGravity(float gravity);
-	float getGravity();
+    void setGravity(float gravity);
+    float getGravity();
 
-	virtual void setMoveDirection(float value, float deltaTime);
+    virtual void setMoveDirection(float value, float deltaTime);
 
-	void collisionSlide(LevelManager& levelManager, float deltaTime);
+    void collisionSlide(LevelManager& levelManager, float deltaTime);
 
     virtual void onCollision(Vector2f normal);
 
     Vector2f getVelocity();
 
-	void jump();
+    void jump();
 
     void addKey(int keyId);
     void removeKey(int keyId);
     bool hasKey(int keyId);
 
-	void reset();
+    void reset();
 };

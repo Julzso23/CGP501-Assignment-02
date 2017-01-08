@@ -7,17 +7,17 @@
 class AABB : public virtual Transformable
 {
 private:
-	Vector2f size;
+    Vector2f size;
 public:
-	AABB();
+    AABB();
 
-	Vector2f getSize();
-	void setSize(Vector2f size);
-	Vector2f getHalf();
-	Vector2f getCentre();
+    Vector2f getSize();
+    void setSize(Vector2f size);
+    Vector2f getHalf();
+    Vector2f getCentre();
 
-	Hit testIntersection(Vector2f point);
-	Hit testIntersection(Segment segment, Vector2f padding);
-	Hit testIntersection(AABB& other);
-	Sweep sweepIntersection(AABB& other, Vector2f delta);
+    Hit testIntersection(Vector2f point);
+    Hit testIntersection(Segment segment, Vector2f padding);
+    Hit testIntersection(AABB& other);
+    Sweep sweepIntersection(AABB& other, Vector2f delta);
 };

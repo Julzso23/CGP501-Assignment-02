@@ -13,27 +13,27 @@ class LevelManager;
 class Level : public Transformable
 {
 private:
-	std::string fileName;
-	SDL_Renderer* renderer;
-	std::vector<std::shared_ptr<Tile>> tiles;
+    std::string fileName;
+    SDL_Renderer* renderer;
+    std::vector<std::shared_ptr<Tile>> tiles;
     std::vector<std::shared_ptr<Key>> keys;
-	std::vector<std::shared_ptr<Door>> doors;
-	std::vector<std::shared_ptr<Enemy>> enemies;
-	Vector2f playerStart;
+    std::vector<std::shared_ptr<Door>> doors;
+    std::vector<std::shared_ptr<Enemy>> enemies;
+    Vector2f playerStart;
 
     static const float tileSize;
 public:
-	Level(std::string fileName, SDL_Renderer* renderer);
+    Level(std::string fileName, SDL_Renderer* renderer);
 
-	void load();
+    void load();
 
-	void draw(Vector2f cameraPosition);
+    void draw(Vector2f cameraPosition);
     Sweep sweepIntersection(AABB& object, Vector2f delta);
     std::vector<int> getKeyIntersections(AABB& object);
-	Sweep sweepDoorIntersection(AABB& object, Vector2f delta);
-	Hit getEnemyIntersection(AABB& object);
+    Sweep sweepDoorIntersection(AABB& object, Vector2f delta);
+    Hit getEnemyIntersection(AABB& object);
 
-	void updateEnemies(LevelManager& levelManager, float deltaTime);
+    void updateEnemies(LevelManager& levelManager, float deltaTime);
 
-	Vector2f getPlayerStart();
+    Vector2f getPlayerStart();
 };

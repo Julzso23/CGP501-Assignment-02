@@ -6,19 +6,19 @@
 class InputManager
 {
 private:
-	SDL_Scancode leftKey, rightKey;
-	const Uint8* keyboardState;
-	SDL_GameController* controller;
-	SDL_Joystick* joystick;
-	int joystickInstanceId;
+    SDL_Scancode leftKey, rightKey;
+    const Uint8* keyboardState;
+    SDL_GameController* controller;
+    SDL_Joystick* joystick;
+    int joystickInstanceId;
 public:
-	InputManager();
-	~InputManager();
+    InputManager();
+    ~InputManager();
 
-	void setInputs(SDL_Scancode leftKey, SDL_Scancode rightKey);
+    void setInputs(SDL_Scancode leftKey, SDL_Scancode rightKey);
 
-	void update();
+    void update();
 
-	float getAxis();
-	bool buttonDown(SDL_Scancode key, SDL_GameControllerButton button = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_INVALID);
+    float getAxis();
+    bool buttonDown(SDL_Scancode key, SDL_GameControllerButton button = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_INVALID);
 };

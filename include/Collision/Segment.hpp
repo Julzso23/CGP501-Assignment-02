@@ -4,6 +4,6 @@
 
 struct Segment
 {
-	Vector2f position;
-	Vector2f delta;
+    Vector2f position;
+    Vector2f delta;
 };

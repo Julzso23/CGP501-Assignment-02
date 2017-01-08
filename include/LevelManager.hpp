@@ -10,17 +10,17 @@
 class LevelManager
 {
 private:
-	std::deque<std::shared_ptr<Level>> levels;
+    std::deque<std::shared_ptr<Level>> levels;
 
-	std::random_device randomDevice;
-	std::mt19937 randomEngine;
+    std::random_device randomDevice;
+    std::mt19937 randomEngine;
 public:
-	LevelManager(std::vector<std::string> levelNames, SDL_Renderer* renderer);
+    LevelManager(std::vector<std::string> levelNames, SDL_Renderer* renderer);
 
-	void loadLevels(std::vector<std::string> levelNames, SDL_Renderer* renderer);
-	void shuffle();
+    void loadLevels(std::vector<std::string> levelNames, SDL_Renderer* renderer);
+    void shuffle();
 
-	void nextLevel();
+    void nextLevel();
 
-	std::shared_ptr<Level> getCurrent();
+    std::shared_ptr<Level> getCurrent();
 };

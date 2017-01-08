@@ -7,19 +7,19 @@
 class Bitmap : public virtual Transformable
 {
 private:
-	double angle;
+    double angle;
 protected:
-	SDL_Surface* surface;
-	SDL_Texture* texture;
-	SDL_Renderer* renderer;
+    SDL_Surface* surface;
+    SDL_Texture* texture;
+    SDL_Renderer* renderer;
 public:
-	Bitmap(SDL_Renderer* renderer, std::string path, bool hasTransparency = false);
-	~Bitmap();
+    Bitmap(SDL_Renderer* renderer, std::string path, bool hasTransparency = false);
+    ~Bitmap();
 
-	void draw(Vector2f cameraPosition);
+    void draw(Vector2f cameraPosition);
 
     Vector2f getSize();
 
-	void setAngle(double angle);
-	double getAngle();
+    void setAngle(double angle);
+    double getAngle();
 };

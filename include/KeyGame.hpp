@@ -8,13 +8,13 @@
 class KeyGame : public Game
 {
 private:
-	Player player;
-	LevelManager levelManager;
-	InputManager inputManager;
-	Vector2f cameraPosition;
+    Player player;
+    LevelManager levelManager;
+    InputManager inputManager;
+    Vector2f cameraPosition;
 
-	void update(float deltaTime);
-	void draw();
+    void update(float deltaTime);
+    void draw();
 public:
-	KeyGame();
+    KeyGame();
 };

@@ -2,100 +2,100 @@
 #include "Utility.hpp"
 
 Player::Player(SDL_Renderer* renderer, std::string path, bool hasTransparency) :
-	Bitmap(renderer, path, hasTransparency)
+    Bitmap(renderer, path, hasTransparency)
 {
     // Set the collision box size to the texture size
-	setSize(Vector2f((float)surface->w, (float)surface->h));
+    setSize(Vector2f((float)surface->w, (float)surface->h));
 
-	reset();
+    reset();
 }
 
 void Player::setGravity(float gravity)
 {
-	this->gravity = gravity;
+    this->gravity = gravity;
 }
 
 float Player::getGravity()
 {
-	return gravity;
+    return gravity;
 }
 
 void Player::setMoveDirection(float value, float deltaTime)
 {
-	velocity.x = value;
-	velocity.y += gravity * deltaTime;
-	if (velocity.y > 3000.f)
-	{
-		velocity.y = 3000.f;
-	}
+    velocity.x = value;
+    velocity.y += gravity * deltaTime;
+    if (velocity.y > 3000.f)
+    {
+        velocity.y = 3000.f;
+    }
 
-	grounded = false;
+    grounded = false;
 }
 
 void Player::collisionSlide(LevelManager& levelManager, float deltaTime)
 {
-	Vector2f velocity = getVelocity();
+    Vector2f velocity = getVelocity();
 
-	// Calculate the first collision sweep
-	Sweep result = levelManager.getCurrent()->sweepIntersection(*this, velocity * deltaTime);
+    // Calculate the first collision sweep
+    Sweep result = levelManager.getCurrent()->sweepIntersection(*this, velocity * deltaTime);
 
-	// If the player is inside a tile, move them out of it
-	if (result.time == 0.f)
-	{
-		move(result.hit.delta);
-		onCollision(result.hit.normal);
-	}
+    // If the player is inside a tile, move them out of it
+    if (result.time == 0.f)
+    {
+        move(result.hit.delta);
+        onCollision(result.hit.normal);
+    }
 
-	// Keep doing sweeps until there isn't a collision
-	while (result.time != 1.f)
-	{
-		// Change the player's velocity to slide along the tile
-		float dotProduct = (velocity.x * result.hit.normal.y + velocity.y * result.hit.normal.x) * (1.f - result.time);
-		velocity.x = result.hit.normal.y * dotProduct;
+    // Keep doing sweeps until there isn't a collision
+    while (result.time != 1.f)
+    {
+        // Change the player's velocity to slide along the tile
+        float dotProduct = (velocity.x * result.hit.normal.y + velocity.y * result.hit.normal.x) * (1.f - result.time);
+        velocity.x = result.hit.normal.y * dotProduct;
 
-		if (result.hit.normal.y != 0.f)
-		{
-			velocity.y *= result.time;
-		}
+        if (result.hit.normal.y != 0.f)
+        {
+            velocity.y *= result.time;
+        }
 
-		// Trigger the player's collision event
-		onCollision(result.hit.normal);
+        // Trigger the player's collision event
+        onCollision(result.hit.normal);
 
-		// Do another sweep
-		result = levelManager.getCurrent()->sweepIntersection(*this, velocity * deltaTime);
-	}
+        // Do another sweep
+        result = levelManager.getCurrent()->sweepIntersection(*this, velocity * deltaTime);
+    }
 
-	result = levelManager.getCurrent()->sweepDoorIntersection(*this, velocity * deltaTime);
+    result = levelManager.getCurrent()->sweepDoorIntersection(*this, velocity * deltaTime);
 
-	// Keep doing sweeps until there isn't a collision
-	while (result.time != 1.f)
-	{
-		// Change the player's velocity to slide along the door
-		float dotProduct = (velocity.x * result.hit.normal.y + velocity.y * result.hit.normal.x) * (1.f - result.time);
-		velocity.x = result.hit.normal.y * dotProduct;
+    // Keep doing sweeps until there isn't a collision
+    while (result.time != 1.f)
+    {
+        // Change the player's velocity to slide along the door
+        float dotProduct = (velocity.x * result.hit.normal.y + velocity.y * result.hit.normal.x) * (1.f - result.time);
+        velocity.x = result.hit.normal.y * dotProduct;
 
-		if (result.hit.normal.y != 0.f)
-		{
-			velocity.y *= result.time;
-		}
+        if (result.hit.normal.y != 0.f)
+        {
+            velocity.y *= result.time;
+        }
 
-		// Trigger the player's collision event
-		onCollision(result.hit.normal);
+        // Trigger the player's collision event
+        onCollision(result.hit.normal);
 
-		if (hasKey(((Door*)result.hit.object)->getId()))
-		{
-			removeKey(((Door*)result.hit.object)->getId());
-			levelManager.nextLevel();
-			reset();
-			setPosition(levelManager.getCurrent()->getPlayerStart());
-		}
+        if (hasKey(((Door*)result.hit.object)->getId()))
+        {
+            removeKey(((Door*)result.hit.object)->getId());
+            levelManager.nextLevel();
+            reset();
+            setPosition(levelManager.getCurrent()->getPlayerStart());
+        }
 
-		// Do another sweep
-		result = levelManager.getCurrent()->sweepDoorIntersection(*this, velocity * deltaTime);
-	}
+        // Do another sweep
+        result = levelManager.getCurrent()->sweepDoorIntersection(*this, velocity * deltaTime);
+    }
 
-	// Actually move the player in the world
-	move(velocity * deltaTime);
+    // Actually move the player in the world
+    move(velocity * deltaTime);
 }
 
 void Player::onCollision(Vector2f normal)
@@ -121,10 +121,10 @@ Vector2f Player::getVelocity()
 void Player::jump()
 {
     // The player can only jump if they're on the ground
-	if (grounded)
-	{
+    if (grounded)
+    {
         velocity.y = -500.f;
-	}
+    }
 }
 
 void Player::addKey(int keyId)
@@ -149,9 +149,9 @@ bool Player::hasKey(int keyId)
 
 void Player::reset()
 {
-	gravity = 1000.f;
-	grounded = false;
-	setPosition(Vector2f(0.f, 0.f));
-	velocity = Vector2f(0.f, 0.f);
-	keys.clear();
+    gravity = 1000.f;
+    grounded = false;
+    setPosition(Vector2f(0.f, 0.f));
+    velocity = Vector2f(0.f, 0.f);
+    keys.clear();
 }

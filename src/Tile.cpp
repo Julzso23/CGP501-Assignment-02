@@ -1,9 +1,9 @@
 #include "Tile.hpp"
 
 Tile::Tile(SDL_Renderer* renderer, std::string path, Vector2f size) :
-	bitmap(renderer, path, false)
+    bitmap(renderer, path, false)
 {
-	setSize(size);
+    setSize(size);
 }
 
 void Tile::draw(Vector2f cameraPosition)
