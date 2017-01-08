@@ -10,8 +10,8 @@ void KeyGame::update(float deltaTime)
         player.jump();
     }
 
-    float value = inputManager.getAxis();
-    player.setMoveDirection(value * 400.f, deltaTime);
+    float direction = inputManager.getAxis();
+    player.setMoveDirection(direction * 400.f, deltaTime);
 
     player.collisionSlide(levelManager, deltaTime);
 
